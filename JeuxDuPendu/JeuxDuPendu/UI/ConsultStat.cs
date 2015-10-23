@@ -24,7 +24,7 @@ namespace JeuxDuPendu
         {
             lblGagne.Text = statistique.NbPartieGagne.ToString();
             lblPerdu.Text = statistique.NbPartiePerdu.ToString();
-            lblPourcentage.Text = statistique.NbPartiePerdu == 0 ? "100,00%" : (statistique.NbPartieGagne / statistique.NbPartiePerdu).ToString("P2");
+            lblPourcentage.Text = statistique.NbPartiePerdu == 0 ? "100,00%" : ((double)statistique.NbPartieGagne / ((double)statistique.NbPartiePerdu + (double)statistique.NbPartieGagne)).ToString("P2");
             lblScore.Text = statistique.Score.ToString();
             Dictionary<String, Statistique> dicoTop = Utilitaire.getTop3();
             for (int i = 0; i < dicoTop.Count; i++)

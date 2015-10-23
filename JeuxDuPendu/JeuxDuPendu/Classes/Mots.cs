@@ -8,24 +8,23 @@ namespace JeuxDuPendu
 {
     public class Mots
     {
-        //TODO: Intégrer les methodes du prof et des varialbes dans a classe mot
-        private string mot;
+        //TODO: Intégrer les methodes du prof et des varialbes dans a classe mot       
         public string[] motsDejaEssayes;
         public string motATrouver;
-        public char[] motCourant;
+        public String motCourant;
         public string[] dico;
-        public string[] motsEssayes;
+
 
         public String Mot
         {
-            get { return mot; }
+            get { return motATrouver; }
             set
             {
                 if (String.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentNullException("Le mot ne doit pas être null");
                 }
-                mot = value;
+                motATrouver = value;
             }
         }
         public String[] MotsDejaEssayes
@@ -46,7 +45,6 @@ namespace JeuxDuPendu
             InitialiserMotsEssayes();
             InitialiserDico(langue);
             InitialiserMotsATrouver();
-            InitialiserMotCourant();
         }
 
         /// <summary>
@@ -89,11 +87,13 @@ namespace JeuxDuPendu
 
         public void InitialiserMotsATrouver()
         {
+            motCourant = "";
             do
             {
                 motATrouver = dico[new Random().Next(0, dico.Length)];
             }
-            while (MotDejaApparu());
+            while (motsDejaEssayes.Contains(motATrouver.ToUpper()));
+            motCourant = motCourant.PadRight(motATrouver.Length, '-');
         }
         /// <summary>
         /// Ajout du mot à la liste des mots essayés
@@ -105,53 +105,23 @@ namespace JeuxDuPendu
                 file.WriteLine(motATrouver);
             }
         }
-        /// <summary>
-        /// Initialisation du mot courant avec des caractères '_'
-        /// </summary>
-        /// <remarks>La taille du mot courant doit être égale à la taille du mot à trouver</remarks>
-        public void InitialiserMotCourant()
+
+        public bool VerifierLettre(char lettre)
         {
-            motCourant = new char[motATrouver.Length];
-            for (int i = 0; i < motCourant.Length; i++) { motCourant[i] = '-'; }
-        }
-        /// <summary>
-        /// Conversion d'un tableau de caractères en une chaine de caractères
-        /// </summary>
-        public string CharsToString()
-        {
-            string chaine = "";
-            for (int i = 0; i < motCourant.Length; i++) { chaine = chaine + motCourant[i]; }
-            return chaine;
+            StringBuilder strBuild;
+            bool lettreTrouvee = false;
+            for (int i = 0; i < motATrouver.Length; i++)
+            {
+                if (motATrouver[i] == lettre)
+                {
+                    lettreTrouvee = true;
+                    strBuild = new StringBuilder(motCourant);
+                    strBuild[i] = lettre;
+                    motCourant = strBuild.ToString();
+                }
+            }
+            return lettreTrouvee;
         }
 
-        public bool MotDejaApparu()
-        {
-            Array.Sort(motsDejaEssayes);
-            // Recherche dichotomique du mot dans le tableau motsDejaEssayes
-            bool motTrouve = false;
-            int debut = 0;
-            int fin = motsDejaEssayes.Length - 1;
-            int milieu;
-            if (motsDejaEssayes.Length != 0)
-            {
-                do
-                {
-                    milieu = (debut + fin) / 2;
-                    if (motsDejaEssayes[milieu] == mot)
-                    {
-                        motTrouve = true;
-                    }
-                    else
-                    {
-                        if (String.Compare(mot, motsDejaEssayes[milieu]) > 0)
-                            debut = milieu + 1;
-                        else fin = milieu - 1;
-                    }
-                }
-                while (!motTrouve && debut <= fin);
-            }
-            if (motTrouve) return true;
-            else return false;
-        }
     }
 }

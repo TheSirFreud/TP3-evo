@@ -28,6 +28,7 @@ namespace JeuxDuPendu
         private Langues langue;
         private const int fin = 9;
         private int nbPartieJoue;
+        StringBuilder strBuild;
 
         // Initialisations
         public JeuxPendu(NiveauDiff niveauDiff, Joueur joueurCourrant)
@@ -115,7 +116,7 @@ namespace JeuxDuPendu
             {
                 if (maxTours == fin) { Perdu(); }
                 else
-                { if (mot.motATrouver == mot.CharsToString()) { Gagne(); } }
+                { if (mot.motATrouver == mot.motCourant) { Gagne(); } }
             }
             else
             {
@@ -130,23 +131,14 @@ namespace JeuxDuPendu
         //Met à jour avec une lettre. Met a jour le mot courrant et appelle MAJJeu
         public void MAJJeu(char lettre)
         {
-            if (maxTours < fin && mot.motATrouver != mot.CharsToString())
+            if (maxTours < fin && mot.motATrouver != mot.motCourant)
             {
-                desactivBouton(lettre);
-                bool lettreTrouvee = false;
-                for (int i = 0; i < mot.motATrouver.Length; i++)
-                {
-                    if (mot.motATrouver[i] == lettre)
-                    {
-                        lettreTrouvee = true;
-                        mot.motCourant[i] = lettre;
-                    }
-                }
-                if (!lettreTrouvee) { Erreur(); }
+                desactivBouton(lettre);                
+                if (!mot.VerifierLettre(lettre)) { Erreur(); }
                 else
                 {
                     soundSample["ok"].Play();
-                    this.lblMotCourrant.Text = mot.CharsToString();
+                    this.lblMotCourrant.Text = mot.motCourant;
                 }
             }
             MAJJeu();
@@ -164,10 +156,10 @@ namespace JeuxDuPendu
         //Lorsque perdu
         public void Perdu()
         {
-           
+
             this.lblSolution.Text = mot.motATrouver;
             this.lblSolution.Show();
-            chrono.Stop();    
+            chrono.Stop();
             soundSample["perdu"].Play();
             nbPartieJoue++;
             enJeu = false;
@@ -177,7 +169,7 @@ namespace JeuxDuPendu
         }
         //Lorsque gagné
         public void Gagne()
-        {      
+        {
             enJeu = false;
             this.lblSolution.Text = "BRAVO! VOUS AVEZ TROUVÉ LE MOT.";
             chrono.Stop();
@@ -215,7 +207,7 @@ namespace JeuxDuPendu
             lblSolution.Hide();
             chrono.Start();
             mot = new Mots(langue);
-            lblMotCourrant.Text = mot.CharsToString();
+            lblMotCourrant.Text = mot.motCourant;
             MAJImagePendu(maxTours, pboPendu);
             activationBoutton(true);
         }
