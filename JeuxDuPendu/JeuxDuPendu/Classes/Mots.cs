@@ -43,8 +43,7 @@ namespace JeuxDuPendu
         public Mots(Langues langue)
         {
             InitialiserMotsEssayes();
-            InitialiserDico(langue);
-            InitialiserMotsATrouver();
+            InitialiserDico(langue);           
         }
 
         /// <summary>
@@ -87,13 +86,20 @@ namespace JeuxDuPendu
 
         public void InitialiserMotsATrouver()
         {
-            motCourant = "";
-            do
+            if (MotsDejaEssayes.Length == dico.Length)
             {
-                motATrouver = dico[new Random().Next(0, dico.Length)];
+                throw new ArgumentException("Vous avez essayé(e) tous les mots!");
             }
-            while (motsDejaEssayes.Contains(motATrouver.ToUpper()));
-            motCourant = motCourant.PadRight(motATrouver.Length, '-');
+            else
+            {
+                motCourant = "";
+                do
+                {
+                    motATrouver = dico[new Random().Next(0, dico.Length)];
+                }
+                while (motsDejaEssayes.Contains(motATrouver.ToUpper()));
+                motCourant = motCourant.PadRight(motATrouver.Length, '-');
+            }
         }
         /// <summary>
         /// Ajout du mot à la liste des mots essayés

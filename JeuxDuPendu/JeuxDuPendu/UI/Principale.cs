@@ -133,7 +133,7 @@ namespace JeuxDuPendu
         {
             if (maxTours < fin && mot.motATrouver != mot.motCourant)
             {
-                desactivBouton(lettre);                
+                desactivBouton(lettre);
                 if (!mot.VerifierLettre(lettre)) { Erreur(); }
                 else
                 {
@@ -236,13 +236,21 @@ namespace JeuxDuPendu
         {
             if (nouvellePartie)
             {
-                enJeu = true;
-                score = 0;
-                maxTours = pointDepart;
-                chrono.Start();
-                EtatInit();
-                this.lblScore.Text = score.ToString();
-                nouvellePartie = false;
+                try
+                {
+                    mot.InitialiserMotsATrouver();
+                    enJeu = true;
+                    score = 0;
+                    maxTours = pointDepart;
+                    chrono.Start();
+                    EtatInit();
+                    this.lblScore.Text = score.ToString();
+                    nouvellePartie = false;
+                }
+                catch (ArgumentException e)
+                {
+                    MessageBox.Show(e.Message, "Terminer", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
             else { EtatInit(); }
         }
