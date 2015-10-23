@@ -43,7 +43,7 @@ namespace JeuxDuPendu
         public Mots(Langues langue)
         {
             InitialiserMotsEssayes();
-            InitialiserDico(langue);           
+            InitialiserDico(langue);
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace JeuxDuPendu
 
         public void InitialiserMotsATrouver()
         {
-            if (MotsDejaEssayes.Length == dico.Length)
+            if (dico.All(p => motsDejaEssayes.Contains(p)))
             {
                 throw new ArgumentException("Vous avez essayé(e) tous les mots!");
             }

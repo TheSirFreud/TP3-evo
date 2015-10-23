@@ -43,6 +43,7 @@ namespace JeuxDuPendu
         private void JeuxPendu_Load(object sender, EventArgs e)
         {
             nouvellePartie = true;
+            mot = new Mots(langue);
             activationBoutton(false);
             chrono.Stop();
             soundSample = new Dictionary<String, SoundPlayer>();
@@ -206,7 +207,7 @@ namespace JeuxDuPendu
             maxTours = pointDepart;
             lblSolution.Hide();
             chrono.Start();
-            mot = new Mots(langue);
+            mot.InitialiserMotsATrouver();
             lblMotCourrant.Text = mot.motCourant;
             MAJImagePendu(maxTours, pboPendu);
             activationBoutton(true);
@@ -237,8 +238,7 @@ namespace JeuxDuPendu
             if (nouvellePartie)
             {
                 try
-                {
-                    mot.InitialiserMotsATrouver();
+                {                  
                     enJeu = true;
                     score = 0;
                     maxTours = pointDepart;
@@ -247,9 +247,9 @@ namespace JeuxDuPendu
                     this.lblScore.Text = score.ToString();
                     nouvellePartie = false;
                 }
-                catch (ArgumentException e)
+                catch (ArgumentException ex)
                 {
-                    MessageBox.Show(e.Message, "Terminer", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(ex.Message, "Terminer", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             else { EtatInit(); }
