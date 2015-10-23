@@ -25,6 +25,7 @@ namespace JeuxDuPendu
         private int pointDepart;
         private Langues langue;
         private const int fin = 9;
+        private int nbPartieJoue;
 
         // Initialisations
         public JeuxPendu(NiveauDiff niveauDiff, Joueur joueur)
@@ -33,6 +34,7 @@ namespace JeuxDuPendu
             utilisateur = joueur;
             difficulte = niveauDiff;
             langue = Langues.Fraçais;
+            nbPartieJoue = 0;
 
         }
         private void JeuxPendu_Load(object sender, EventArgs e)
@@ -108,9 +110,21 @@ namespace JeuxDuPendu
         //Met à jour le jeu sans lettre (temps de reflexion dépassé) et regarde si le jeu est terminer
         public void MAJJeu()
         {
-            if (maxTours == fin) { Perdu(); }
+            if (nbPartieJoue != 10)
+            {
+                if (maxTours == fin) { Perdu(); }
+                else
+                { if (mot.motATrouver == mot.CharsToString()) { Gagne(); } }
+            }
             else
-            { if (mot.motATrouver == mot.CharsToString()) { Gagne(); } }
+            {
+                activationBoutton(false);
+                EtatNeutre();
+                nouvellePartie = true;
+                nbPartieJoue = 0;
+                ConsultStat frmStat = new ConsultStat(utilisateur.NoJoueur);
+                frmStat.ShowDialog();
+            }
         }
         //Met à jour avec une lettre. Met a jour le mot courrant et appelle MAJJeu
         public void MAJJeu(char lettre)
@@ -155,6 +169,7 @@ namespace JeuxDuPendu
             chrono.Stop();
             mot.AjouterMot();
             soundSample["perdu"].Play();
+            nbPartieJoue++;
             Utilitaire.updateSats(utilisateur.NoJoueur, false, difficulte);
         }
         //Lorsque gagné
@@ -168,6 +183,7 @@ namespace JeuxDuPendu
             this.lblScore.Text = score.ToString();
             mot.AjouterMot();
             soundSample["gagne"].Play();
+            nbPartieJoue++;
             Utilitaire.updateSats(utilisateur.NoJoueur, true, difficulte);
         }
         //Met a jour l'image selon le nombre max de tour
