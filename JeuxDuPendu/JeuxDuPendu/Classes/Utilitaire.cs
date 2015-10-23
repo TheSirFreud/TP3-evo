@@ -97,7 +97,7 @@ namespace JeuxDuPendu
                     int no = Convert.ToInt32(reader["noUtil"]);
                     unJoueur = new Joueur(no, nom);
                 }
-
+                
                 return unJoueur;
             }
             catch (Exception e)
