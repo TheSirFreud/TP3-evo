@@ -181,6 +181,15 @@ namespace JeuxDuPendu.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
+        internal static System.IO.UnmanagedMemoryStream gagne {
+            get {
+                return ResourceManager.GetStream("gagne", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
         internal static System.IO.UnmanagedMemoryStream perdu {
             get {
                 return ResourceManager.GetStream("perdu", resourceCulture);

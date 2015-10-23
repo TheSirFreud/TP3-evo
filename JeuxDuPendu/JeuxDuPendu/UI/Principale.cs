@@ -44,9 +44,11 @@ namespace JeuxDuPendu
             soundSample.Add("ok", new SoundPlayer(Properties.Resources.ff7move));
             soundSample.Add("no", new SoundPlayer(Properties.Resources.erreur));
             soundSample.Add("perdu", new SoundPlayer(Properties.Resources.perdu));
+            soundSample.Add("gagne", new SoundPlayer(Properties.Resources.gagne));
             soundSample["ok"].Load();
             soundSample["no"].Load();
             soundSample["perdu"].Load();
+            soundSample["gagne"].Load();
             lblNom.Text = utilisateur.Nom;
             lblNiveau.Text = Utilitaire.GetDescription(difficulte);
             
@@ -165,6 +167,7 @@ namespace JeuxDuPendu
             this.lblSolution.Show();
             this.lblScore.Text = score.ToString();
             mot.AjouterMot();
+            soundSample["gagne"].Play();
             Utilitaire.updateSats(utilisateur.NoJoueur, true, difficulte);
         }
         //Met a jour l'image selon le nombre max de tour

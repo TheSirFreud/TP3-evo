@@ -47,7 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Langues.cs" />
+    <Compile Include="Classes\Langues.cs" />
     <Compile Include="UI\APropos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -124,58 +124,49 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\0.png" />
+    <Resource Include="Resources\0.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\1.png" />
+    <Resource Include="Resources\1.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\2.png" />
+    <Resource Include="Resources\2.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\3.png" />
+    <Resource Include="Resources\3.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\4.png" />
+    <Resource Include="Resources\4.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\5.png" />
+    <Resource Include="Resources\5.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\6.png" />
+    <Resource Include="Resources\6.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\ff7ok2.wav" />
+    <Resource Include="Resources\ff7no.wav" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\ff7no.wav" />
+    <Resource Include="Resources\ff7ok.wav" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\ff7ok.wav" />
+    <Resource Include="Resources\Computer Error Alert-SoundBible.com-783113881.wav" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\ff7cancel.wav" />
+    <Resource Include="Resources\Sad_Trombone-Joe_Lamb-665429450.wav" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\ff7ready.wav" />
+    <Resource Include="Resources\9.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\ff7move.wav" />
+    <Resource Include="Resources\10.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Computer Error Alert-SoundBible.com-783113881.wav" />
+    <Resource Include="Resources\13.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Sad_Trombone-Joe_Lamb-665429450.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\9.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\10.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\13.png" />
+    <None Include="Resources\Ta Da-SoundBible.com-1884170640.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
