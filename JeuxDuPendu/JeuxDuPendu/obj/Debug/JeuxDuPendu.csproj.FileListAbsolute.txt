@@ -85,3 +85,4 @@ C:\Users\Dominique\Desktop\Evo\TP3-evo\JeuxDuPendu\JeuxDuPendu\obj\Debug\JeuxDuP
 C:\Users\Dominique\Desktop\Evo\TP3-evo\JeuxDuPendu\JeuxDuPendu\bin\Debug\JeuxDuPendu.exe
 C:\Users\Dominique\Desktop\Evo\TP3-evo\JeuxDuPendu\JeuxDuPendu\bin\Debug\JeuxDuPendu.pdb
 C:\Users\Dominique\Desktop\Evo\TP3-evo\JeuxDuPendu\JeuxDuPendu\obj\Debug\JeuxDuPendu.csprojResolveAssemblyReference.cache
+C:\Users\Dominique\Desktop\Evo\TP3-evo\JeuxDuPendu\JeuxDuPendu\obj\Debug\JeuxDuPendu.g.resources

@@ -37,6 +37,13 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.lblScore = new System.Windows.Forms.Label();
+            this.lbl3 = new System.Windows.Forms.Label();
+            this.lbl2 = new System.Windows.Forms.Label();
+            this.lbl1 = new System.Windows.Forms.Label();
+            this.lblScore3 = new System.Windows.Forms.Label();
+            this.lblScore2 = new System.Windows.Forms.Label();
+            this.lblScore1 = new System.Windows.Forms.Label();
+            this.lblTop = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblTitre
@@ -121,11 +128,81 @@
             this.lblScore.TabIndex = 7;
             this.lblScore.Text = "label3";
             // 
+            // lbl3
+            // 
+            this.lbl3.AutoSize = true;
+            this.lbl3.Location = new System.Drawing.Point(351, 173);
+            this.lbl3.Name = "lbl3";
+            this.lbl3.Size = new System.Drawing.Size(60, 13);
+            this.lbl3.TabIndex = 14;
+            this.lbl3.Text = "Non classé";
+            // 
+            // lbl2
+            // 
+            this.lbl2.AutoSize = true;
+            this.lbl2.Location = new System.Drawing.Point(351, 131);
+            this.lbl2.Name = "lbl2";
+            this.lbl2.Size = new System.Drawing.Size(60, 13);
+            this.lbl2.TabIndex = 13;
+            this.lbl2.Text = "Non classé";
+            // 
+            // lbl1
+            // 
+            this.lbl1.AutoSize = true;
+            this.lbl1.Location = new System.Drawing.Point(351, 87);
+            this.lbl1.Name = "lbl1";
+            this.lbl1.Size = new System.Drawing.Size(60, 13);
+            this.lbl1.TabIndex = 12;
+            this.lbl1.Text = "Non classé";
+            // 
+            // lblScore3
+            // 
+            this.lblScore3.AutoSize = true;
+            this.lblScore3.Location = new System.Drawing.Point(497, 173);
+            this.lblScore3.Name = "lblScore3";
+            this.lblScore3.Size = new System.Drawing.Size(24, 13);
+            this.lblScore3.TabIndex = 11;
+            this.lblScore3.Text = "n/a";
+            // 
+            // lblScore2
+            // 
+            this.lblScore2.AutoSize = true;
+            this.lblScore2.Location = new System.Drawing.Point(497, 131);
+            this.lblScore2.Name = "lblScore2";
+            this.lblScore2.Size = new System.Drawing.Size(24, 13);
+            this.lblScore2.TabIndex = 10;
+            this.lblScore2.Text = "n/a";
+            // 
+            // lblScore1
+            // 
+            this.lblScore1.AutoSize = true;
+            this.lblScore1.Location = new System.Drawing.Point(497, 87);
+            this.lblScore1.Name = "lblScore1";
+            this.lblScore1.Size = new System.Drawing.Size(24, 13);
+            this.lblScore1.TabIndex = 9;
+            this.lblScore1.Text = "n/a";
+            // 
+            // lblTop
+            // 
+            this.lblTop.AutoSize = true;
+            this.lblTop.Location = new System.Drawing.Point(421, 47);
+            this.lblTop.Name = "lblTop";
+            this.lblTop.Size = new System.Drawing.Size(35, 13);
+            this.lblTop.TabIndex = 15;
+            this.lblTop.Text = "Top 3";
+            // 
             // ConsultStat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 262);
+            this.ClientSize = new System.Drawing.Size(591, 262);
+            this.Controls.Add(this.lblTop);
+            this.Controls.Add(this.lbl3);
+            this.Controls.Add(this.lbl2);
+            this.Controls.Add(this.lbl1);
+            this.Controls.Add(this.lblScore3);
+            this.Controls.Add(this.lblScore2);
+            this.Controls.Add(this.lblScore1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.lblScore);
             this.Controls.Add(this.label3);
@@ -154,5 +231,12 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lblScore;
+        private System.Windows.Forms.Label lbl3;
+        private System.Windows.Forms.Label lbl2;
+        private System.Windows.Forms.Label lbl1;
+        private System.Windows.Forms.Label lblScore3;
+        private System.Windows.Forms.Label lblScore2;
+        private System.Windows.Forms.Label lblScore1;
+        private System.Windows.Forms.Label lblTop;
     }
 }

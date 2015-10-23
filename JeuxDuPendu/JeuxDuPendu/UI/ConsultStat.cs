@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Reflection;
 
 namespace JeuxDuPendu
 {
@@ -25,6 +26,14 @@ namespace JeuxDuPendu
             lblPerdu.Text = statistique.NbPartiePerdu.ToString();
             lblPourcentage.Text = statistique.NbPartiePerdu == 0 ? "100,00%" : (statistique.NbPartieGagne / statistique.NbPartiePerdu).ToString("P2");
             lblScore.Text = statistique.Score.ToString();
+            Dictionary<String, Statistique> dicoTop = Utilitaire.getTop3();
+            for (int i = 0; i < dicoTop.Count; i++)
+            {
+                Label lab = (Label)Controls["lbl" + (i + 1).ToString()];
+                Label labScore = (Label)Controls["lblScore" + (i + 1).ToString()];
+                lab.Text = dicoTop.Keys.ElementAt(i);
+                labScore.Text = ((Statistique)dicoTop.Values.ElementAt(i)).Score.ToString();
+            }
         }
     }
 }

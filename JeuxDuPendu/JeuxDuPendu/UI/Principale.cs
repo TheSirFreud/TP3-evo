@@ -53,7 +53,7 @@ namespace JeuxDuPendu
             soundSample["gagne"].Load();
             lblNom.Text = utilisateur.Nom;
             lblNiveau.Text = Utilitaire.GetDescription(difficulte);
-            
+
             pbTemps.Maximum = tempsReflexion;
             lblCountDown.Text = pbTemps.Maximum.ToString();
             ChangerDifficulte(difficulte);
