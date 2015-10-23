@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Media;
 using System.Diagnostics;
 using System.Net.Sockets;
+
 namespace JeuxDuPendu
 {
     public partial class JeuxPendu : Form
@@ -17,9 +18,10 @@ namespace JeuxDuPendu
         private int score;
         private int maxTours;
         private bool nouvellePartie;
+        private bool enJeu;
         private Mots mot;
         private Dictionary<String, SoundPlayer> soundSample;
-        private Joueur utilisateur;
+        private Joueur joueur;
         private NiveauDiff difficulte;
         private int tempsReflexion;
         private int pointDepart;
@@ -28,14 +30,14 @@ namespace JeuxDuPendu
         private int nbPartieJoue;
 
         // Initialisations
-        public JeuxPendu(NiveauDiff niveauDiff, Joueur joueur)
+        public JeuxPendu(NiveauDiff niveauDiff, Joueur joueurCourrant)
         {
             InitializeComponent();
-            utilisateur = joueur;
+            joueur = joueurCourrant;
             difficulte = niveauDiff;
             langue = Langues.Fraçais;
             nbPartieJoue = 0;
-
+            enJeu = false;
         }
         private void JeuxPendu_Load(object sender, EventArgs e)
         {
@@ -51,9 +53,8 @@ namespace JeuxDuPendu
             soundSample["no"].Load();
             soundSample["perdu"].Load();
             soundSample["gagne"].Load();
-            lblNom.Text = utilisateur.Nom;
+            lblNom.Text = joueur.Nom;
             lblNiveau.Text = Utilitaire.GetDescription(difficulte);
-
             pbTemps.Maximum = tempsReflexion;
             lblCountDown.Text = pbTemps.Maximum.ToString();
             ChangerDifficulte(difficulte);
@@ -122,7 +123,7 @@ namespace JeuxDuPendu
                 EtatNeutre();
                 nouvellePartie = true;
                 nbPartieJoue = 0;
-                ConsultStat frmStat = new ConsultStat(utilisateur.NoJoueur);
+                ConsultStat frmStat = new ConsultStat(joueur.NoJoueur);
                 frmStat.ShowDialog();
             }
         }
@@ -163,28 +164,31 @@ namespace JeuxDuPendu
         //Lorsque perdu
         public void Perdu()
         {
-            activationBoutton(false);
+           
             this.lblSolution.Text = mot.motATrouver;
             this.lblSolution.Show();
-            chrono.Stop();
-            mot.AjouterMot();
+            chrono.Stop();    
             soundSample["perdu"].Play();
             nbPartieJoue++;
-            Utilitaire.updateSats(utilisateur.NoJoueur, false, difficulte);
+            enJeu = false;
+            activationBoutton(false);
+            mot.AjouterMot();
+            Utilitaire.updateSats(joueur.NoJoueur, false, difficulte);
         }
         //Lorsque gagné
         public void Gagne()
-        {
-            activationBoutton(false);
+        {      
+            enJeu = false;
             this.lblSolution.Text = "BRAVO! VOUS AVEZ TROUVÉ LE MOT.";
             chrono.Stop();
             lblTSolution.Visible = true;
             this.lblSolution.Show();
             this.lblScore.Text = score.ToString();
-            mot.AjouterMot();
+            activationBoutton(false);
             soundSample["gagne"].Play();
             nbPartieJoue++;
-            Utilitaire.updateSats(utilisateur.NoJoueur, true, difficulte);
+            mot.AjouterMot();
+            Utilitaire.updateSats(joueur.NoJoueur, true, difficulte);
         }
         //Met a jour l'image selon le nombre max de tour
         public void MAJImagePendu(int maxTour, PictureBox pbo)
@@ -204,6 +208,7 @@ namespace JeuxDuPendu
         //État d'une nouvelle partie (tout activé, seul le score reste inchangé)
         public void EtatInit()
         {
+            enJeu = true;
             pbTemps.Value = 0;
             lblCountDown.Text = pbTemps.Maximum.ToString();
             maxTours = pointDepart;
@@ -218,6 +223,7 @@ namespace JeuxDuPendu
         public void EtatNeutre()
         {
             nouvellePartie = true;
+            enJeu = false;
             chrono.Stop();
             pboPendu.Image = null;
             lblCountDown.Text = pbTemps.Maximum.ToString();
@@ -238,6 +244,7 @@ namespace JeuxDuPendu
         {
             if (nouvellePartie)
             {
+                enJeu = true;
                 score = 0;
                 maxTours = pointDepart;
                 chrono.Start();
@@ -253,13 +260,15 @@ namespace JeuxDuPendu
         //Permet de géré les touche du clavier
         private void Form1_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyValue >= 97 && e.KeyValue <= 122)
+            if (enJeu)
             {
-                char lettre = Convert.ToChar(e.KeyValue);
-                MAJJeu(lettre);
+                if (e.KeyValue >= 65 && e.KeyValue <= 90)
+                {
+                    char lettre = Convert.ToChar(e.KeyValue);
+                    MAJJeu(lettre);
+                }
             }
         }
-
 
         //permet de changer le niveau de difficulté
         private void facileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -301,7 +310,7 @@ namespace JeuxDuPendu
 
         private void consulterStatistiqueToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ConsultStat frmStat = new ConsultStat(utilisateur.NoJoueur);
+            ConsultStat frmStat = new ConsultStat(joueur.NoJoueur);
             frmStat.ShowDialog();
         }
 

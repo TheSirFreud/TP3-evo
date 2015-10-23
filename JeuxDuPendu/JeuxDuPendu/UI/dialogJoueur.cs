@@ -47,7 +47,7 @@ namespace JeuxDuPendu
             }
             else
             {
-                int noJoueur = Utilitaire.putUtil(cboUtil.Text);
+                int noJoueur = Utilitaire.putJoueur(cboUtil.Text);
                 Joueur joueur = new Joueur(noJoueur, cboUtil.Text);
                 frmPrincipal = new JeuxPendu(niveauDiff, joueur);
             }          

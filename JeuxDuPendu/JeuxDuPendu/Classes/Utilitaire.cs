@@ -85,11 +85,11 @@ namespace JeuxDuPendu
             Joueur unJoueur = null;
             try
             {
-                
+
                 connexion.Open();
                 commande = new OleDbCommand("SELECT * FROM tblUtilisateurs WHERE noUtil=@noUtil", connexion);
                 commande.Parameters.Add("@noJoueur", OleDbType.Integer).Value = noJoueur;
-               
+
                 OleDbDataReader reader = commande.ExecuteReader();
                 if (reader.Read())
                 {
@@ -97,7 +97,7 @@ namespace JeuxDuPendu
                     int no = Convert.ToInt32(reader["noUtil"]);
                     unJoueur = new Joueur(no, nom);
                 }
-                
+
                 return unJoueur;
             }
             catch (Exception e)
@@ -111,7 +111,7 @@ namespace JeuxDuPendu
             }
         }
         //Ajoute un utilisateur
-        public static int putUtil(String nomJoueur)
+        public static int putJoueur(String nomJoueur)
         {
             OleDbCommand commandeValidation;
             OleDbCommand commandeStat;
@@ -187,7 +187,7 @@ namespace JeuxDuPendu
         }
         public static Dictionary<String, Statistique> getTop3()
         {
-           
+
             Dictionary<String, Statistique> dico = new Dictionary<String, Statistique>();
             OleDbConnection connexion = new OleDbConnection(connBD);
             Joueur unJoueur = null;
@@ -204,7 +204,7 @@ namespace JeuxDuPendu
                     int nbGagne = reader["nbPartieGagne"] == DBNull.Value ? 0 : Convert.ToInt32(reader["nbPartieGagne"]);
                     int nbPerdu = reader["nbPartiePerdu"] == DBNull.Value ? 0 : Convert.ToInt32(reader["nbPartiePerdu"]);
                     int score = reader["score"] == DBNull.Value ? 0 : Convert.ToInt32(reader["score"]);
-                  
+
                     dico.Add(unJoueur.Nom, new Statistique(nbGagne, nbPerdu, score));
                 }
                 dico = dico.OrderByDescending(p => p.Value.Score).ToDictionary(pair => pair.Key, pair => pair.Value);
@@ -221,6 +221,29 @@ namespace JeuxDuPendu
             }
         }
         //Update les stats 
+        public static void ResetStats(int noJoueur)
+        {
+
+            OleDbConnection connexion = new OleDbConnection(connBD);
+
+            try
+            {
+                connexion.Open();
+
+                commande = new OleDbCommand("UPDATE tblStatistique SET nbPartieGagne = 0,nPartiePerdu=0, score=0 WHERE noJoueur=@noJoueur", connexion);
+                commande.Parameters.Add("@noJoueur", OleDbType.Integer).Value = noJoueur;
+                commande.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+                commande.Dispose();
+                connexion.Close();
+            }
+        }
         public static void updateSats(int noJoueur, bool estGagne, NiveauDiff nivDiff)
         {
             int nbPoint = 1;
