@@ -219,6 +219,7 @@ namespace JeuxDuPendu
             enJeu = false;
             chrono.Stop();
             pboPendu.Image = null;
+            activationBoutton(false);
             lblCountDown.Text = pbTemps.Maximum.ToString();
             pbTemps.Value = 0;
             lblMotCourrant.Text = "";
@@ -238,7 +239,7 @@ namespace JeuxDuPendu
             if (nouvellePartie)
             {
                 try
-                {                  
+                {
                     enJeu = true;
                     score = 0;
                     maxTours = pointDepart;
@@ -312,6 +313,40 @@ namespace JeuxDuPendu
         {
             ConsultStat frmStat = new ConsultStat(joueur.NoJoueur);
             frmStat.ShowDialog();
+        }
+
+        private void bgChangDico_DoWork(object sender, DoWorkEventArgs e)
+        {
+            mot.InitialiserDico(langue);
+           
+        }
+
+        private void bgChangDico_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            switch (langue)
+            {
+                case Langues.Fraçais:
+                    MessageBox.Show("Changement de langue fait avec succès");
+                    break;
+                case Langues.Anglais:
+                    MessageBox.Show("Language changed with succes");
+                    break;
+            }
+
+        }
+
+        private void button10_Click_1(object sender, EventArgs e)
+        {
+            if (langue == Langues.Anglais)
+            {
+                langue = Langues.Fraçais;
+            }
+            else
+            {
+                langue = Langues.Anglais;
+            }
+            bgChangDico.RunWorkerAsync();
+            EtatNeutre();
         }
 
     }

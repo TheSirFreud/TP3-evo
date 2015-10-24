@@ -67,12 +67,13 @@
             this.changerDutilisateurToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.multijoueurToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changerLangueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.àProposToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.voirInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.changerDifficultéToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.règlesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.voirRèglesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statistiqueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.consulterStatistiqueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.àProposToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.voirInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pbTemps = new System.Windows.Forms.ProgressBar();
             this.lblTempsReflexion = new System.Windows.Forms.Label();
             this.chrono = new System.Windows.Forms.Timer(this.components);
@@ -82,7 +83,8 @@
             this.lblTNiveau = new System.Windows.Forms.Label();
             this.lblCountDown = new System.Windows.Forms.Label();
             this.pboPendu = new System.Windows.Forms.PictureBox();
-            this.changerDifficultéToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bgChangDico = new System.ComponentModel.BackgroundWorker();
+            this.button10 = new System.Windows.Forms.Button();
             this.menuPrincipal.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboPendu)).BeginInit();
             this.SuspendLayout();
@@ -503,20 +505,12 @@
             this.changerLangueToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.changerLangueToolStripMenuItem.Text = "Changer langue";
             // 
-            // àProposToolStripMenuItem
+            // changerDifficultéToolStripMenuItem
             // 
-            this.àProposToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.voirInformationToolStripMenuItem});
-            this.àProposToolStripMenuItem.Name = "àProposToolStripMenuItem";
-            this.àProposToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
-            this.àProposToolStripMenuItem.Text = "À Propos";
-            // 
-            // voirInformationToolStripMenuItem
-            // 
-            this.voirInformationToolStripMenuItem.Name = "voirInformationToolStripMenuItem";
-            this.voirInformationToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
-            this.voirInformationToolStripMenuItem.Text = "Voir Information";
-            this.voirInformationToolStripMenuItem.Click += new System.EventHandler(this.voirInformationToolStripMenuItem_Click);
+            this.changerDifficultéToolStripMenuItem.Name = "changerDifficultéToolStripMenuItem";
+            this.changerDifficultéToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.changerDifficultéToolStripMenuItem.Text = "Changer difficulté";
+            this.changerDifficultéToolStripMenuItem.Click += new System.EventHandler(this.facileToolStripMenuItem_Click);
             // 
             // règlesToolStripMenuItem
             // 
@@ -546,6 +540,21 @@
             this.consulterStatistiqueToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.consulterStatistiqueToolStripMenuItem.Text = "Consulter Statistique";
             this.consulterStatistiqueToolStripMenuItem.Click += new System.EventHandler(this.consulterStatistiqueToolStripMenuItem_Click);
+            // 
+            // àProposToolStripMenuItem
+            // 
+            this.àProposToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.voirInformationToolStripMenuItem});
+            this.àProposToolStripMenuItem.Name = "àProposToolStripMenuItem";
+            this.àProposToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
+            this.àProposToolStripMenuItem.Text = "À Propos";
+            // 
+            // voirInformationToolStripMenuItem
+            // 
+            this.voirInformationToolStripMenuItem.Name = "voirInformationToolStripMenuItem";
+            this.voirInformationToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.voirInformationToolStripMenuItem.Text = "Voir Information";
+            this.voirInformationToolStripMenuItem.Click += new System.EventHandler(this.voirInformationToolStripMenuItem_Click);
             // 
             // pbTemps
             // 
@@ -630,12 +639,20 @@
             this.pboPendu.TabIndex = 35;
             this.pboPendu.TabStop = false;
             // 
-            // changerDifficultéToolStripMenuItem
+            // bgChangDico
             // 
-            this.changerDifficultéToolStripMenuItem.Name = "changerDifficultéToolStripMenuItem";
-            this.changerDifficultéToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.changerDifficultéToolStripMenuItem.Text = "Changer difficulté";
-            this.changerDifficultéToolStripMenuItem.Click += new System.EventHandler(this.facileToolStripMenuItem_Click);
+            this.bgChangDico.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgChangDico_DoWork);
+            this.bgChangDico.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgChangDico_RunWorkerCompleted);
+            // 
+            // button10
+            // 
+            this.button10.Location = new System.Drawing.Point(459, 149);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(75, 23);
+            this.button10.TabIndex = 44;
+            this.button10.Text = "button10";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click_1);
             // 
             // JeuxPendu
             // 
@@ -643,6 +660,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(564, 601);
+            this.Controls.Add(this.button10);
             this.Controls.Add(this.lblCountDown);
             this.Controls.Add(this.lblNiveau);
             this.Controls.Add(this.lblTNiveau);
@@ -757,6 +775,8 @@
         private System.Windows.Forms.ToolStripMenuItem consulterStatistiqueToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem changerLangueToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem changerDifficultéToolStripMenuItem;
+        private System.ComponentModel.BackgroundWorker bgChangDico;
+        private System.Windows.Forms.Button button10;
     }
 }
 
