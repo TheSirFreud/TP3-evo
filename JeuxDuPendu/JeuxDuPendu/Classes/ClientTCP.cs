@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using System.ComponentModel;
+using System.Windows;
+using System.Windows.Forms;
 
 namespace JeuxDuPendu
 {
@@ -47,22 +50,58 @@ namespace JeuxDuPendu
 
         public void execBouclePrincipale()
         {
+            BackgroundWorker bWorker = new BackgroundWorker();
+            bWorker.WorkerSupportsCancellation = true;
+            bWorker.DoWork += 
+                new DoWorkEventHandler(bwAttendreDeuxiemeJoueur);
+            bWorker.RunWorkerCompleted +=
+                new RunWorkerCompletedEventHandler(bwAttendreDeuxiemeJoueurCompletee);
+
+            if(bWorker.IsBusy != true)
+                bWorker.RunWorkerAsync();
+        }
+
+        /// <summary>
+        /// Méthode qui s'exécute lorsque le serveur indique avoir trouvé un deuxième joueur (Continuation de l'exécution normale)
+        /// </summary>
+        private void bwAttendreDeuxiemeJoueurCompletee(object sender, RunWorkerCompletedEventArgs e)
+        {
+            MessageBox.Show("Deuxième joueur trouvé, début de la partie!");
+        }
+
+        /// <summary>
+        /// Méthode exécutée par un background worker qui attend que le serveur indique qu'il y a un deuxième joueur pour commencer la partie.
+        /// </summary>
+        private void bwAttendreDeuxiemeJoueur(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker worker = sender as BackgroundWorker;
             bool finExec = false;
             while (!finExec)
             {
-                //Si l'on ne reçoit pas de mot, cela veut dire
-                //qu'on attend le deuxième client, donc attendre
-                //aussi
-                string leMot = "";
-                if (leClient.GetStream().DataAvailable)
+                if (worker.CancellationPending)
+                {
+                    e.Cancel = true;
+                    break;
+                }
+                else
+                {
+                    //Si l'on ne reçoit pas de mot, cela veut dire
+                    //qu'on attend le deuxième client, donc attendre
+                    //aussi
+                    string leMot = "";
                     leMot = LireReponse();
 
-                if (leMot == null || leMot == "")
-                {
-                    //Note : le serveur répond à toutes les
-                    //500 milisecondes
-                    Thread.Sleep(200);
+                    if (leMot == null || leMot == "")
+                        //Note : le serveur répond à toutes les
+                        //500 milisecondes
+                        Thread.Sleep(200);
+                    else
+                    {
+                        e.Cancel = true;
+                        break;
+                    }
                 }
+
             }
         }
 
@@ -72,28 +111,13 @@ namespace JeuxDuPendu
             int nbrBytesLusTotal = 0;
 
             //Lecture jusqu'à la fin
-            do
+            while (leClient.GetStream().DataAvailable)
             {
                 int nbrBytesLus = leClient.GetStream().Read(buffer, nbrBytesLusTotal, buffer.Length - nbrBytesLusTotal);
                 nbrBytesLusTotal += nbrBytesLus;
             }
-            while (leClient.GetStream().DataAvailable);
 
             return Encoding.Unicode.GetString(buffer, 0, nbrBytesLusTotal);
         }
-
-        //private Task<string> LireReponseAsync()
-        //{
-        //    byte[] buffer = new byte[256];
-        //    int nbrBytesLusTotal = 0;
-
-        //    //Lecture jusqu'à la fin
-        //    do
-        //    {
-        //        int nbrBytesLus = leClient.GetStream().Read(buffer, nbrBytesLusTotal, buffer.Length - nbrBytesLusTotal);
-        //        nbrBytesLusTotal += nbrBytesLus;
-        //    }
-        //    while (leClient.GetStream().DataAvailable);
-        //}
     }
 }

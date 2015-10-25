@@ -20,7 +20,7 @@ namespace ServeurJeuDuPendu
         public ServeurTCP(string adresseIP, int noPort)
         {
             this.lEcouteur = new System.Net.Sockets.TcpListener
-                    (IPAddress.Parse(adresseIP),noPort);
+                    (IPAddress.Parse(adresseIP), noPort);
             this.nbrJoueurs = 0;
         }
 
@@ -31,40 +31,47 @@ namespace ServeurJeuDuPendu
 
         public void execBouclePrincipale()
         {
-            while(true)
-            {
-                if (nbrJoueurs == 0)
-                    Console.WriteLine("Attente de connexion...");
-                TcpClient unClient = lEcouteur.AcceptTcpClient();
+            //Comme il ne peut qu'y avoir 2 joueurs pour un serveur,
+            //coder le tout de manière linéaire
 
-                //Un thread par client
-                Thread threadPrClient = new Thread
-                    (new ParameterizedThreadStart(GestionnaireClient));
-                threadPrClient.Start();
-            }
+            Console.WriteLine("Attente de connexion...");
+            TcpClient unClient = lEcouteur.AcceptTcpClient();
+
+            //Un thread par client
+            Thread threadPrClient = new Thread
+                (new ParameterizedThreadStart(GestionnaireClient));
+            threadPrClient.Start();
+
+            Console.WriteLine("Attente d'un deuxième joueur...");
+            unClient = lEcouteur.AcceptTcpClient();
+
+            threadPrClient = new Thread
+                (new ParameterizedThreadStart(GestionnaireClient));
+            threadPrClient.Start();
+
+            //Deux joueurs maintenant connectés, démarrer la partie
+            Console.WriteLine("Démarrage de la partie!");
         }
 
         public void GestionnaireClient(object clientTCP)
         {
             //Connexion de joueur, donc un joueur de plus
-            lock(this)
-                nbrJoueurs++;
+            nbrJoueurs++;
 
             TcpClient unClient = clientTCP as TcpClient;
 
             //Envoi du mot à trouver au client,
             //ou du message d'attente d'un autre client
 
-            while(nbrJoueurs < 2)
+            while (nbrJoueurs < 2)
             {
-                Console.WriteLine("Attente d'un deuxième joueur...");
                 Thread.Sleep(500);
             }
 
             bool finExec = false;
-            while(!finExec)
+            while (!finExec)
             {
-    
+
             }
         }
     }
