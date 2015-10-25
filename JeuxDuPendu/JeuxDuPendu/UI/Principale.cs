@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Media;
 using System.Diagnostics;
+using System.Net;
 using System.Net.Sockets;
 
 namespace JeuxDuPendu
@@ -347,6 +348,21 @@ namespace JeuxDuPendu
             }
             bgChangDico.RunWorkerAsync();
             EtatNeutre();
+        }
+
+        private void démarrerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //Tentative de connexion au serveur
+            GestionnaireClientTCP leClient = 
+                new GestionnaireClientTCP("127.0.0.1", 1330);
+            if (!leClient.Connexion())
+                MessageBox.Show("Erreur : le serveur n'a pu être trouvé");
+            else
+            {
+                MessageBox.Show("Connexion au serveur réussie");
+                leClient.execBouclePrincipale();
+
+            }
         }
 
     }
