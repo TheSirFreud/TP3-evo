@@ -85,6 +85,8 @@
             this.pboPendu = new System.Windows.Forms.PictureBox();
             this.bgChangDico = new System.ComponentModel.BackgroundWorker();
             this.button10 = new System.Windows.Forms.Button();
+            this.jeuEnRéseauToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.démarrerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuPrincipal.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboPendu)).BeginInit();
             this.SuspendLayout();
@@ -469,6 +471,7 @@
             this.optionsToolStripMenuItem,
             this.règlesToolStripMenuItem,
             this.statistiqueToolStripMenuItem,
+            this.jeuEnRéseauToolStripMenuItem,
             this.àProposToolStripMenuItem});
             this.menuPrincipal.Location = new System.Drawing.Point(0, 0);
             this.menuPrincipal.Name = "menuPrincipal";
@@ -654,6 +657,21 @@
             this.button10.UseVisualStyleBackColor = true;
             this.button10.Click += new System.EventHandler(this.button10_Click_1);
             // 
+            // jeuEnRéseauToolStripMenuItem
+            // 
+            this.jeuEnRéseauToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.démarrerToolStripMenuItem});
+            this.jeuEnRéseauToolStripMenuItem.Name = "jeuEnRéseauToolStripMenuItem";
+            this.jeuEnRéseauToolStripMenuItem.Size = new System.Drawing.Size(89, 20);
+            this.jeuEnRéseauToolStripMenuItem.Text = "Jeu en réseau";
+            // 
+            // démarrerToolStripMenuItem
+            // 
+            this.démarrerToolStripMenuItem.Name = "démarrerToolStripMenuItem";
+            this.démarrerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.démarrerToolStripMenuItem.Text = "Démarrer";
+            this.démarrerToolStripMenuItem.Click += new System.EventHandler(this.démarrerToolStripMenuItem_Click);
+            // 
             // JeuxPendu
             // 
             this.AcceptButton = this.btnNouvellePartie;
@@ -777,6 +795,8 @@
         private System.Windows.Forms.ToolStripMenuItem changerDifficultéToolStripMenuItem;
         private System.ComponentModel.BackgroundWorker bgChangDico;
         private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.ToolStripMenuItem jeuEnRéseauToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem démarrerToolStripMenuItem;
     }
 }
 
