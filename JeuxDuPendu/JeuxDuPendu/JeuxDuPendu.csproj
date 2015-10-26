@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\ClientTCP.cs" />
     <Compile Include="Classes\Langues.cs" />
     <Compile Include="UI\APropos.cs">
       <SubType>Form</SubType>
