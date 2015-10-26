@@ -30,6 +30,7 @@ namespace JeuxDuPendu
         private const int fin = 9;
         private int nbPartieJoue;
         StringBuilder strBuild;
+        private bool partieEnLigne;
 
         // Initialisations
         public JeuxPendu(NiveauDiff niveauDiff, Joueur joueurCourrant)
@@ -40,6 +41,7 @@ namespace JeuxDuPendu
             langue = Langues.Fraçais;
             nbPartieJoue = 0;
             enJeu = false;
+            partieEnLigne = false;
         }
         private void JeuxPendu_Load(object sender, EventArgs e)
         {
@@ -62,6 +64,10 @@ namespace JeuxDuPendu
             lblCountDown.Text = pbTemps.Maximum.ToString();
             ChangerDifficulte(difficulte);
         }
+
+        //Getter et setter
+
+        public Mots Mots { set { this.mot = value; } }
 
         //Permet de changer la dificulté
         public void ChangerDifficulte(NiveauDiff niveauDiff)
@@ -198,6 +204,13 @@ namespace JeuxDuPendu
             }
         }
 
+        //Méthode gérant une nouvelle partie en ligne(Permet l'accesibilité à partir de l'extérieur)
+        public void NouvellePartieEnLigne(string motATrouver)
+        {
+            mot.InitialiserMotsATrouver(motATrouver);
+            partieEnLigne = true;
+            button29_Click(this, null);
+        }
 
         //État d'une nouvelle partie (tout activé, seul le score reste inchangé)
         public void EtatInit()
@@ -208,7 +221,11 @@ namespace JeuxDuPendu
             maxTours = pointDepart;
             lblSolution.Hide();
             chrono.Start();
-            mot.InitialiserMotsATrouver();
+
+            //Comme le mot es déjà initialisé s'il y a une partie en ligne
+            if (!partieEnLigne)
+                mot.InitialiserMotsATrouver();
+ 
             lblMotCourrant.Text = mot.motCourant;
             MAJImagePendu(maxTours, pboPendu);
             activationBoutton(true);
@@ -256,6 +273,7 @@ namespace JeuxDuPendu
             }
             else { EtatInit(); }
         }
+
         //Evenement qui se déclanche lorsqu'une lettre est enfoncer au clavier ou sur l'interface
         private void button1_Click(object sender, EventArgs e)
         { MAJJeu(((Button)sender).Text[0]); }
@@ -353,8 +371,8 @@ namespace JeuxDuPendu
         private void démarrerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //Tentative de connexion au serveur
-            GestionnaireClientTCP leClient = 
-                new GestionnaireClientTCP("127.0.0.1", 1330);
+            GestionnaireClientTCP leClient =
+                new GestionnaireClientTCP("127.0.0.1", 1330, this, langue);
             if (!leClient.Connexion())
                 MessageBox.Show("Erreur : le serveur n'a pu être trouvé");
             else

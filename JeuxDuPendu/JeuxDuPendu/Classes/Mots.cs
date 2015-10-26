@@ -101,6 +101,20 @@ namespace JeuxDuPendu
                 motCourant = motCourant.PadRight(motATrouver.Length, '-');
             }
         }
+
+        public void InitialiserMotsATrouver(string pMotATrouver)
+        {
+            if (dico.All(p => motsDejaEssayes.Contains(p)))
+            {
+                throw new ArgumentException("Vous avez essayé(e) tous les mots!");
+            }
+            else
+            {
+                motATrouver = pMotATrouver;
+                motCourant = "";
+                motCourant = motCourant.PadRight(motATrouver.Length, '-');
+            }
+        }
         /// <summary>
         /// Ajout du mot à la liste des mots essayés
         /// </summary>

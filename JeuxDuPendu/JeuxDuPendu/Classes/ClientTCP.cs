@@ -9,6 +9,7 @@ using System.Threading;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Forms;
+using System.Windows;
 
 namespace JeuxDuPendu
 {
@@ -17,15 +18,23 @@ namespace JeuxDuPendu
         //TODO : La gestion de connexion devrait être intrisèque,
         //même chose pour le serveur
         //Attribut
+        JeuxPendu parent;
         string adresseIP;
         int noPort;
+        Langues laLangue;
         TcpClient leClient;
+        string leMotADeviner;
 
         //Constructeur
-        public GestionnaireClientTCP(string adresseIP, int noPort)
+        public GestionnaireClientTCP(string adresseIP, int noPort, JeuxPendu parent, Langues laLangue)
         {
             this.adresseIP = adresseIP;
             this.noPort = noPort;
+
+            //Obtenir le parent (JeuxPendu)
+            this.parent = parent;
+
+            this.laLangue = laLangue;
         }
 
         //Méthodes
@@ -52,12 +61,12 @@ namespace JeuxDuPendu
         {
             BackgroundWorker bWorker = new BackgroundWorker();
             bWorker.WorkerSupportsCancellation = true;
-            bWorker.DoWork += 
+            bWorker.DoWork +=
                 new DoWorkEventHandler(bwAttendreDeuxiemeJoueur);
             bWorker.RunWorkerCompleted +=
                 new RunWorkerCompletedEventHandler(bwAttendreDeuxiemeJoueurCompletee);
 
-            if(bWorker.IsBusy != true)
+            if (!bWorker.IsBusy)
                 bWorker.RunWorkerAsync();
         }
 
@@ -66,7 +75,9 @@ namespace JeuxDuPendu
         /// </summary>
         private void bwAttendreDeuxiemeJoueurCompletee(object sender, RunWorkerCompletedEventArgs e)
         {
-            MessageBox.Show("Deuxième joueur trouvé, début de la partie!");
+            //Deuxième joueur trouvé, début de la partie
+            //Note : La valeur du string est déjà initialisée
+            parent.NouvellePartieEnLigne(leMotADeviner);
         }
 
         /// <summary>
@@ -88,15 +99,17 @@ namespace JeuxDuPendu
                     //Si l'on ne reçoit pas de mot, cela veut dire
                     //qu'on attend le deuxième client, donc attendre
                     //aussi
-                    string leMot = "";
-                    leMot = LireReponse();
+                    string leMotRecu = "";
+                    leMotRecu = LireReponse();
 
-                    if (leMot == null || leMot == "")
+                    if (leMotRecu == null || leMotRecu == "")
                         //Note : le serveur répond à toutes les
                         //500 milisecondes
                         Thread.Sleep(200);
                     else
                     {
+                        //Un mot a été reçu, initialiser la classe
+                        leMotADeviner = leMotRecu;
                         e.Cancel = true;
                         break;
                     }
