@@ -23,7 +23,8 @@ namespace JeuxDuPendu
         int noPort;
         Langues laLangue;
         TcpClient leClient;
-        string leMotADeviner;
+        string leMotADevinerRecu;
+        BackgroundWorker backWorkerAttendreReponseDefaite;
 
         //Constructeur
         public GestionnaireClientTCP(string adresseIP, int noPort, JeuxPendu parent, Langues laLangue)
@@ -71,13 +72,81 @@ namespace JeuxDuPendu
         }
 
         /// <summary>
+        /// Méthode qui envoie au serveur que ce client a gagné
+        /// </summary>
+        public void EnvoyerGagne()
+        {
+            //Message pas important, c'est le geste qui compte
+            EnvoyerReponse("J'ai gagné!");
+            //Arrêter le background worker qui attend une réponse "J'ai gagné" de l'autre client
+            backWorkerAttendreReponseDefaite.CancelAsync();
+
+        }
+
+        /// <summary>
         /// Méthode qui s'exécute lorsque le serveur indique avoir trouvé un deuxième joueur (Continuation de l'exécution normale)
         /// </summary>
         private void bwAttendreDeuxiemeJoueurCompletee(object sender, RunWorkerCompletedEventArgs e)
         {
             //Deuxième joueur trouvé, début de la partie
             //Note : La valeur du string est déjà initialisée
-            parent.NouvellePartieEnLigne(leMotADeviner);
+            parent.NouvellePartieEnLigne(leMotADevinerRecu);
+
+            //Attente et vérification de la réception de "J'ai gagné" de l'autre client
+            backWorkerAttendreReponseDefaite = new BackgroundWorker();
+            backWorkerAttendreReponseDefaite.WorkerSupportsCancellation = true;
+            backWorkerAttendreReponseDefaite.DoWork +=
+                new DoWorkEventHandler(bwAttendreReponseDefaite);
+            backWorkerAttendreReponseDefaite.RunWorkerCompleted +=
+                new RunWorkerCompletedEventHandler(bwAttendreReponseDefaiteTerminee);
+
+            if (!backWorkerAttendreReponseDefaite.IsBusy)
+                backWorkerAttendreReponseDefaite.RunWorkerAsync();
+        }
+
+        /// <summary>
+        /// Méthode qui s'exécute lorsque le serveur indique que l'autre client a gagné
+        /// </summary>
+        private void bwAttendreReponseDefaiteTerminee(object sender, RunWorkerCompletedEventArgs e)
+        {
+            //Indiquer une défaite
+            if(!e.Cancelled)
+                parent.Perdu();
+        }
+
+        /// <summary>
+        /// Méthode exécutée par un background worker qui attend que le serveur indique que l'autre client a gagné
+        /// </summary>
+        private void bwAttendreReponseDefaite(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker worker = sender as BackgroundWorker;
+            bool finExec = false;
+            while (!finExec)
+            {
+                if (worker.CancellationPending)
+                {
+                    e.Cancel = true;
+                    break;
+                }
+                else
+                {
+                    //Si l'on ne reçoit pas de mot, cela veut dire
+                    //qu'on attend le deuxième client, donc attendre
+                    //aussi
+                    string defaiteRecue = "";
+                    defaiteRecue = LireReponse();
+
+                    if (defaiteRecue == null || defaiteRecue == "")
+                        Thread.Sleep(50);
+                    else
+                    {
+                        //Il y a défaite, continuer
+                        e.Result = DialogResult.OK;
+                        break;
+                    }
+                }
+
+            }
         }
 
         /// <summary>
@@ -109,7 +178,7 @@ namespace JeuxDuPendu
                     else
                     {
                         //Un mot a été reçu, initialiser la classe
-                        leMotADeviner = leMotRecu;
+                        leMotADevinerRecu = leMotRecu;
                         e.Cancel = true;
                         break;
                     }
@@ -131,6 +200,12 @@ namespace JeuxDuPendu
             }
 
             return Encoding.Unicode.GetString(buffer, 0, nbrBytesLusTotal);
+        }
+
+        private void EnvoyerReponse(string message)
+        {
+            byte[] byteReponse = Encoding.Unicode.GetBytes(message);
+            leClient.GetStream().Write(byteReponse, 0, byteReponse.Length);
         }
     }
 }
