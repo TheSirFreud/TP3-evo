@@ -62,27 +62,27 @@
             this.lblGagne.AutoSize = true;
             this.lblGagne.Location = new System.Drawing.Point(196, 87);
             this.lblGagne.Name = "lblGagne";
-            this.lblGagne.Size = new System.Drawing.Size(35, 13);
+            this.lblGagne.Size = new System.Drawing.Size(13, 13);
             this.lblGagne.TabIndex = 1;
-            this.lblGagne.Text = "label2";
+            this.lblGagne.Text = "0";
             // 
             // lblPerdu
             // 
             this.lblPerdu.AutoSize = true;
             this.lblPerdu.Location = new System.Drawing.Point(196, 131);
             this.lblPerdu.Name = "lblPerdu";
-            this.lblPerdu.Size = new System.Drawing.Size(35, 13);
+            this.lblPerdu.Size = new System.Drawing.Size(13, 13);
             this.lblPerdu.TabIndex = 2;
-            this.lblPerdu.Text = "label3";
+            this.lblPerdu.Text = "0";
             // 
             // lblPourcentage
             // 
             this.lblPourcentage.AutoSize = true;
             this.lblPourcentage.Location = new System.Drawing.Point(196, 173);
             this.lblPourcentage.Name = "lblPourcentage";
-            this.lblPourcentage.Size = new System.Drawing.Size(35, 13);
+            this.lblPourcentage.Size = new System.Drawing.Size(13, 13);
             this.lblPourcentage.TabIndex = 3;
-            this.lblPourcentage.Text = "label3";
+            this.lblPourcentage.Text = "0";
             // 
             // label1
             // 
@@ -125,9 +125,9 @@
             this.lblScore.AutoSize = true;
             this.lblScore.Location = new System.Drawing.Point(196, 215);
             this.lblScore.Name = "lblScore";
-            this.lblScore.Size = new System.Drawing.Size(35, 13);
+            this.lblScore.Size = new System.Drawing.Size(13, 13);
             this.lblScore.TabIndex = 7;
-            this.lblScore.Text = "label3";
+            this.lblScore.Text = "0";
             // 
             // lbl3
             // 
@@ -225,6 +225,7 @@
             this.Controls.Add(this.lblGagne);
             this.Controls.Add(this.lblTitre);
             this.Name = "ConsultStat";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ConsultStat";
             this.Load += new System.EventHandler(this.ConsultStat_Load);
             this.ResumeLayout(false);

@@ -28,7 +28,6 @@ namespace JeuxDuPendu
         private void ConsultStat_Load(object sender, EventArgs e)
         {
             Affichage();
-
         }
         private void Affichage()
         {
