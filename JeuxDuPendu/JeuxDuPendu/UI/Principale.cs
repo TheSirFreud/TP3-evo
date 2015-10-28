@@ -361,16 +361,7 @@ namespace JeuxDuPendu
 
         private void button10_Click_1(object sender, EventArgs e)
         {
-            if (langue == Langues.Anglais)
-            {
-                langue = Langues.Fraçais;
-            }
-            else
-            {
-                langue = Langues.Anglais;
-            }
-            bgChangDico.RunWorkerAsync();
-            EtatNeutre();
+
         }
 
         private void démarrerToolStripMenuItem_Click(object sender, EventArgs e)
@@ -384,16 +375,23 @@ namespace JeuxDuPendu
                 leClient.execBouclePrincipale();
         }
 
-        private void francaisToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ci = new CultureInfo("fr-FR");
-            Translation();
-        }
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            ci = new CultureInfo("en-CA");
+            switch (((ToolStripMenuItem)sender).Text)
+            {
+                case "Francais":
+                    ci = new CultureInfo("fr-FR");
+                langue = Langues.Fraçais;
+                    break;
+                case "English":
+                     ci = new CultureInfo("en-CA");
+                langue = Langues.Anglais;
+                    break;
+            }           
             Translation();
+            bgChangDico.RunWorkerAsync();
+            EtatNeutre();
         }
         private void Translation()
         {
@@ -419,11 +417,11 @@ namespace JeuxDuPendu
             lblTempsReflexion.Text = rm.GetString("lblTempsReflexion", ci);
             btnNouvellePartie.Text = rm.GetString("btnNouvellePartie", ci);
             btnQuitter.Text = rm.GetString("btnQuitter", ci);
-            
+
 
         }
 
 
-        
+
     }
 }
