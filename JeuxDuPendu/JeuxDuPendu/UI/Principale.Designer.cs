@@ -66,12 +66,16 @@
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changerDutilisateurToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.multijoueurToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.changerLangueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changerDifficultéToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.langueToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.règlesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.voirRèglesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statistiqueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.consulterStatistiqueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.jeuEnRéseauToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.démarrerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.àProposToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.voirInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pbTemps = new System.Windows.Forms.ProgressBar();
@@ -85,8 +89,6 @@
             this.pboPendu = new System.Windows.Forms.PictureBox();
             this.bgChangDico = new System.ComponentModel.BackgroundWorker();
             this.button10 = new System.Windows.Forms.Button();
-            this.jeuEnRéseauToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.démarrerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuPrincipal.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboPendu)).BeginInit();
             this.SuspendLayout();
@@ -484,8 +486,8 @@
             this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.changerDutilisateurToolStripMenuItem,
             this.multijoueurToolStripMenuItem,
-            this.changerLangueToolStripMenuItem,
-            this.changerDifficultéToolStripMenuItem});
+            this.changerDifficultéToolStripMenuItem,
+            this.langueToolStripMenuItem1});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.optionsToolStripMenuItem.Text = "Options";
@@ -502,18 +504,34 @@
             this.multijoueurToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.multijoueurToolStripMenuItem.Text = "Multi-joueurs";
             // 
-            // changerLangueToolStripMenuItem
-            // 
-            this.changerLangueToolStripMenuItem.Name = "changerLangueToolStripMenuItem";
-            this.changerLangueToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.changerLangueToolStripMenuItem.Text = "Changer langue";
-            // 
             // changerDifficultéToolStripMenuItem
             // 
             this.changerDifficultéToolStripMenuItem.Name = "changerDifficultéToolStripMenuItem";
             this.changerDifficultéToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.changerDifficultéToolStripMenuItem.Text = "Changer difficulté";
             this.changerDifficultéToolStripMenuItem.Click += new System.EventHandler(this.facileToolStripMenuItem_Click);
+            // 
+            // langueToolStripMenuItem1
+            // 
+            this.langueToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1,
+            this.toolStripMenuItem2});
+            this.langueToolStripMenuItem1.Name = "langueToolStripMenuItem1";
+            this.langueToolStripMenuItem1.Size = new System.Drawing.Size(184, 22);
+            this.langueToolStripMenuItem1.Text = "Langue";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(117, 22);
+            this.toolStripMenuItem1.Text = "Francais";
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(117, 22);
+            this.toolStripMenuItem2.Text = "English";
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
             // règlesToolStripMenuItem
             // 
@@ -543,6 +561,21 @@
             this.consulterStatistiqueToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.consulterStatistiqueToolStripMenuItem.Text = "Consulter Statistique";
             this.consulterStatistiqueToolStripMenuItem.Click += new System.EventHandler(this.consulterStatistiqueToolStripMenuItem_Click);
+            // 
+            // jeuEnRéseauToolStripMenuItem
+            // 
+            this.jeuEnRéseauToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.démarrerToolStripMenuItem});
+            this.jeuEnRéseauToolStripMenuItem.Name = "jeuEnRéseauToolStripMenuItem";
+            this.jeuEnRéseauToolStripMenuItem.Size = new System.Drawing.Size(89, 20);
+            this.jeuEnRéseauToolStripMenuItem.Text = "Jeu en réseau";
+            // 
+            // démarrerToolStripMenuItem
+            // 
+            this.démarrerToolStripMenuItem.Name = "démarrerToolStripMenuItem";
+            this.démarrerToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.démarrerToolStripMenuItem.Text = "Démarrer";
+            this.démarrerToolStripMenuItem.Click += new System.EventHandler(this.démarrerToolStripMenuItem_Click);
             // 
             // àProposToolStripMenuItem
             // 
@@ -656,21 +689,6 @@
             this.button10.Text = "button10";
             this.button10.UseVisualStyleBackColor = true;
             this.button10.Click += new System.EventHandler(this.button10_Click_1);
-            // 
-            // jeuEnRéseauToolStripMenuItem
-            // 
-            this.jeuEnRéseauToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.démarrerToolStripMenuItem});
-            this.jeuEnRéseauToolStripMenuItem.Name = "jeuEnRéseauToolStripMenuItem";
-            this.jeuEnRéseauToolStripMenuItem.Size = new System.Drawing.Size(89, 20);
-            this.jeuEnRéseauToolStripMenuItem.Text = "Jeu en réseau";
-            // 
-            // démarrerToolStripMenuItem
-            // 
-            this.démarrerToolStripMenuItem.Name = "démarrerToolStripMenuItem";
-            this.démarrerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.démarrerToolStripMenuItem.Text = "Démarrer";
-            this.démarrerToolStripMenuItem.Click += new System.EventHandler(this.démarrerToolStripMenuItem_Click);
             // 
             // JeuxPendu
             // 
@@ -791,12 +809,14 @@
         private System.Windows.Forms.ToolStripMenuItem voirInformationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem voirRèglesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem consulterStatistiqueToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem changerLangueToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem changerDifficultéToolStripMenuItem;
         private System.ComponentModel.BackgroundWorker bgChangDico;
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.ToolStripMenuItem jeuEnRéseauToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem démarrerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem langueToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
     }
 }
 
