@@ -7,6 +7,7 @@ using JeuxDuPendu;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using System.Net.NetworkInformation;
 
 namespace ServeurJeuDuPendu
 {
@@ -26,6 +27,7 @@ namespace ServeurJeuDuPendu
             this.noPort = noPort;
             this.lEcouteur = new System.Net.Sockets.TcpListener
                     (IPAddress.Parse(adresseIP), noPort);
+            this.laLangue = Langues.Aucune;
         }
 
         //Méthodes
@@ -45,7 +47,7 @@ namespace ServeurJeuDuPendu
         private void ExecBouclePrincipale()
         {
             string strLangue;
-            if (laLangue == null)
+            if (laLangue == Langues.Aucune)
             {
                 do
                 {
