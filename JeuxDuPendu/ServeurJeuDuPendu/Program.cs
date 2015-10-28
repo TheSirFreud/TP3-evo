@@ -14,7 +14,6 @@ namespace ServeurJeuDuPendu
         {
             ServeurTCP leServeur = new ServeurTCP(localhost, portParDefaut);
             leServeur.Demarrer();
-            leServeur.ExecBouclePrincipale();
         }
     }
 }
