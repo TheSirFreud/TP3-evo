@@ -57,7 +57,7 @@ namespace JeuxDuPendu
             }
             frmPrincipal.Owner = this;
             frmPrincipal.Show();
-            //Hide();
+            Hide();
         }
 
         private void dialogJoueur_Load(object sender, EventArgs e)
