@@ -399,6 +399,11 @@ namespace JeuxDuPendu
             }
         }
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> refs/remotes/origin/master
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
@@ -406,23 +411,41 @@ namespace JeuxDuPendu
             {
                 case "Francais":
                     dialogJoueur.ci = new CultureInfo("fr-FR");
+<<<<<<< HEAD
                 langue = Langues.Fraçais;
                     break;
                 case "English":
                     dialogJoueur.ci = new CultureInfo("en-CA");
                 langue = Langues.Anglais;
+=======
+                    langue = Langues.Fraçais;
+
+                    break;
+                case "English":
+                    dialogJoueur.ci = new CultureInfo("en-CA");
+                    langue = Langues.Anglais;
+>>>>>>> refs/remotes/origin/master
                     break;
             }           
             Translation();
             bgChangDico.RunWorkerAsync();
+<<<<<<< HEAD
             EtatNeutre();
 
         }
+=======
+            EtatNeutre();        }
+
+>>>>>>> refs/remotes/origin/master
         private void Translation()
         {
             Assembly assembly = Assembly.Load("JeuxDuPendu");
             ResourceManager rm = new ResourceManager("JeuxDuPendu.Langues.langres", assembly);
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> refs/remotes/origin/master
             jeuEnRéseauToolStripMenuItem.Text = rm.GetString("jeuEnRéseauToolStripMenuItem", dialogJoueur.ci);
             démarrerToolStripMenuItem.Text = rm.GetString("démarrerToolStripMenuItem", dialogJoueur.ci);
             changerDifficultéToolStripMenuItem.Text = rm.GetString("facileToolStripMenuItem", dialogJoueur.ci);
@@ -443,6 +466,26 @@ namespace JeuxDuPendu
             btnQuitter.Text = rm.GetString("btnQuitter", dialogJoueur.ci);
 
             ((dialogJoueur)Owner).Translation();
+<<<<<<< HEAD
+=======
+		}
+        private void LangueDifficulte(Langues langue, NiveauDiff diff)
+        {
+            switch (diff)
+            {
+                case NiveauDiff.Facile:
+                    lblNiveau.Text = langue == Langues.Fraçais ? Utilitaire.GetDescription(diff): "Easy";
+                    break;
+                case NiveauDiff.Moyen:
+                    lblNiveau.Text = langue == Langues.Fraçais ? Utilitaire.GetDescription(diff) : "Average";
+                    break;
+                case NiveauDiff.Difficile:
+                    lblNiveau.Text = langue == Langues.Fraçais ? Utilitaire.GetDescription(diff) : "Hard";
+                    break;
+                default:
+                    break;
+            }
+>>>>>>> refs/remotes/origin/master
         }
 
 
