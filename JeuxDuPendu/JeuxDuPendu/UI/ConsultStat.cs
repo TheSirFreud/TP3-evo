@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Reflection;
+using System.Globalization;
+using System.Resources;
 
 namespace JeuxDuPendu
 {
@@ -18,6 +20,7 @@ namespace JeuxDuPendu
         {
             statistique = Utilitaire.getSats(noJoueur);
             InitializeComponent();
+            Translation();
         }
 
         private void ConsultStat_Load(object sender, EventArgs e)
@@ -34,6 +37,18 @@ namespace JeuxDuPendu
                 lab.Text = dicoTop.Keys.ElementAt(i);
                 labScore.Text = ((Statistique)dicoTop.Values.ElementAt(i)).Score.ToString();
             }
+
+        }
+
+        private void Translation()
+        {
+            Assembly assembly = Assembly.Load("JeuxDuPendu");
+            ResourceManager rm = new ResourceManager("JeuxDuPendu.Langues.langres", assembly);
+
+            this.Text = rm.GetString("statistiqueToolStripMenuItem", JeuxPendu.ci);
+            label1.Text = rm.GetString("statsPartiesG", JeuxPendu.ci);
+            label2.Text = rm.GetString("statsPartiesP", JeuxPendu.ci);
+            label3.Text = rm.GetString("statsPourcent", JeuxPendu.ci);
         }
     }
 }

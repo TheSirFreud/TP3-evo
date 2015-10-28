@@ -11,6 +11,9 @@ using System.Media;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
+using System.Globalization;
+using System.Resources;
+using System.Reflection;
 
 namespace JeuxDuPendu
 {
@@ -29,8 +32,8 @@ namespace JeuxDuPendu
         private Langues langue;
         private const int fin = 9;
         private int nbPartieJoue;
-        StringBuilder strBuild;
         private bool partieEnLigne;
+        public static CultureInfo ci;
         GestionnaireClientTCP leClient;
 
         // Initialisations
@@ -68,7 +71,7 @@ namespace JeuxDuPendu
 
         //Getter et setter
 
-        public Mots Mots { set { this.mot = value; } }
+        public Mots Mots { get; set; }
 
         //Permet de changer la dificulté
         public void ChangerDifficulte(NiveauDiff niveauDiff)
@@ -165,6 +168,7 @@ namespace JeuxDuPendu
         //Lorsque perdu
         public void Perdu()
         {
+            if (partieEnLigne) { this.lblMotCourrant.Text = "PAS ASSEZ RAPIDE! PERDU"; }
             this.lblTSolution.Visible = true;
             this.lblSolution.Text = mot.motATrouver;
             this.lblSolution.Show();
@@ -190,6 +194,7 @@ namespace JeuxDuPendu
         //Lorsque gagné
         public void Gagne()
         {
+            if (partieEnLigne) { leClient.EnvoyerGagne(); }
             enJeu = false;
             this.lblSolution.Text = "BRAVO! VOUS AVEZ TROUVÉ LE MOT.";
             chrono.Stop();
@@ -246,10 +251,10 @@ namespace JeuxDuPendu
             lblSolution.Hide();
             chrono.Start();
 
-            //Comme le mot es déjà initialisé s'il y a une partie en ligne
+            //Comme le mot est déjà initialisé s'il y a une partie en ligne
             if (!partieEnLigne)
                 mot.InitialiserMotsATrouver();
- 
+
             lblMotCourrant.Text = mot.motCourant;
             MAJImagePendu(maxTours, pboPendu);
             activationBoutton(true);
@@ -361,7 +366,6 @@ namespace JeuxDuPendu
         private void bgChangDico_DoWork(object sender, DoWorkEventArgs e)
         {
             mot.InitialiserDico(langue);
-           
         }
 
         private void bgChangDico_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -413,5 +417,46 @@ namespace JeuxDuPendu
             }
         }
 
+        private void francaisToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ci = new CultureInfo("fr-FR");
+            Translation();
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            ci = new CultureInfo("en-CA");
+            Translation();
+        }
+        private void Translation()
+        {
+            Assembly assembly = Assembly.Load("JeuxDuPendu");
+            ResourceManager rm = new ResourceManager("JeuxDuPendu.Langues.langres", assembly);
+
+
+            jeuEnRéseauToolStripMenuItem.Text = rm.GetString("jeuEnRéseauToolStripMenuItem", ci);
+            démarrerToolStripMenuItem.Text = rm.GetString("démarrerToolStripMenuItem", ci);
+            changerDifficultéToolStripMenuItem.Text = rm.GetString("facileToolStripMenuItem", ci);
+            optionsToolStripMenuItem.Text = rm.GetString("optionsToolStripMenuItem", ci);
+            changerDutilisateurToolStripMenuItem.Text = rm.GetString("changerDutilisateurToolStripMenuItem", ci);
+            multijoueurToolStripMenuItem.Text = rm.GetString("multijoueurToolStripMenuItem", ci);
+            àProposToolStripMenuItem.Text = rm.GetString("àProposToolStripMenuItem", ci);
+            voirInformationToolStripMenuItem.Text = rm.GetString("voirInformationToolStripMenuItem", ci);
+            règlesToolStripMenuItem.Text = rm.GetString("règlesToolStripMenuItem", ci);
+            voirRèglesToolStripMenuItem.Text = rm.GetString("voirRèglesToolStripMenuItem", ci);
+            statistiqueToolStripMenuItem.Text = rm.GetString("statistiqueToolStripMenuItem", ci);
+            consulterStatistiqueToolStripMenuItem.Text = rm.GetString("consulterStatistiqueToolStripMenuItem", ci);
+            langueToolStripMenuItem1.Text = rm.GetString("langueToolStripMenuItem", ci);
+            lblTNiveau.Text = rm.GetString("lblTNiveau", ci);
+            lblTNom.Text = rm.GetString("lblTNom", ci);
+            lblTempsReflexion.Text = rm.GetString("lblTempsReflexion", ci);
+            btnNouvellePartie.Text = rm.GetString("btnNouvellePartie", ci);
+            btnQuitter.Text = rm.GetString("btnQuitter", ci);
+            
+
+        }
+
+
+        
     }
 }
