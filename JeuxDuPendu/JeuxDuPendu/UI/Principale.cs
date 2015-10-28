@@ -19,6 +19,10 @@ namespace JeuxDuPendu
 {
     public partial class JeuxPendu : Form
     {
+        public NiveauDiff difficulte;
+        public Langues langue;
+        public int tempsReflexion;
+
         private int score;
         private int maxTours;
         private bool nouvellePartie;
@@ -26,14 +30,17 @@ namespace JeuxDuPendu
         private Mots mot;
         private Dictionary<String, SoundPlayer> soundSample;
         private Joueur joueur;
-        private NiveauDiff difficulte;
-        private int tempsReflexion;
+
         private int pointDepart;
-        private Langues langue;
         private const int fin = 9;
         private int nbPartieJoue;
         private bool partieEnLigne;
         GestionnaireClientTCP leClient;
+
+        public ProgressBar progBar
+        {
+            get { return pbTemps; }
+        }
 
         // Initialisations
         public JeuxPendu(NiveauDiff niveauDiff, Joueur joueurCourrant)
@@ -45,6 +52,7 @@ namespace JeuxDuPendu
             nbPartieJoue = 0;
             enJeu = false;
             partieEnLigne = false;
+            ChangerDifficulte(difficulte);
         }
         private void JeuxPendu_Load(object sender, EventArgs e)
         {
@@ -65,7 +73,7 @@ namespace JeuxDuPendu
             lblNiveau.Text = Utilitaire.GetDescription(difficulte);
             pbTemps.Maximum = tempsReflexion;
             lblCountDown.Text = pbTemps.Maximum.ToString();
-            ChangerDifficulte(difficulte);
+
         }
 
 
