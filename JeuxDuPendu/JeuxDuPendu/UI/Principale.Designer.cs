@@ -70,8 +70,6 @@
             this.langueToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.règlesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.voirRèglesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statistiqueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.consulterStatistiqueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.jeuEnRéseauToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -470,7 +468,6 @@
             // 
             this.menuPrincipal.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.optionsToolStripMenuItem,
-            this.règlesToolStripMenuItem,
             this.statistiqueToolStripMenuItem,
             this.jeuEnRéseauToolStripMenuItem,
             this.àProposToolStripMenuItem});
@@ -522,30 +519,16 @@
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(117, 22);
             this.toolStripMenuItem1.Text = "Francais";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(117, 22);
             this.toolStripMenuItem2.Text = "English";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
-            // 
-            // règlesToolStripMenuItem
-            // 
-            this.règlesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.voirRèglesToolStripMenuItem});
-            this.règlesToolStripMenuItem.Name = "règlesToolStripMenuItem";
-            this.règlesToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
-            this.règlesToolStripMenuItem.Text = "Règles";
-            // 
-            // voirRèglesToolStripMenuItem
-            // 
-            this.voirRèglesToolStripMenuItem.Name = "voirRèglesToolStripMenuItem";
-            this.voirRèglesToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
-            this.voirRèglesToolStripMenuItem.Text = "Voir Règles";
             // 
             // statistiqueToolStripMenuItem
             // 
@@ -788,7 +771,6 @@
         private System.Windows.Forms.Label lblNom;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem àProposToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem règlesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem changerDutilisateurToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem multijoueurToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem statistiqueToolStripMenuItem;
@@ -796,7 +778,6 @@
         private System.Windows.Forms.Label lblTNiveau;
         private System.Windows.Forms.Label lblCountDown;
         private System.Windows.Forms.ToolStripMenuItem voirInformationToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem voirRèglesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem consulterStatistiqueToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem changerDifficultéToolStripMenuItem;
         private System.ComponentModel.BackgroundWorker bgChangDico;

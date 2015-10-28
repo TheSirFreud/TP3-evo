@@ -432,9 +432,7 @@ namespace JeuxDuPendu
             changerDutilisateurToolStripMenuItem.Text = rm.GetString("changerDutilisateurToolStripMenuItem", dialogJoueur.ci);
             multijoueurToolStripMenuItem.Text = rm.GetString("multijoueurToolStripMenuItem", dialogJoueur.ci);
             àProposToolStripMenuItem.Text = rm.GetString("àProposToolStripMenuItem", dialogJoueur.ci);
-            voirInformationToolStripMenuItem.Text = rm.GetString("voirInformationToolStripMenuItem", dialogJoueur.ci);
-            règlesToolStripMenuItem.Text = rm.GetString("règlesToolStripMenuItem", dialogJoueur.ci);
-            voirRèglesToolStripMenuItem.Text = rm.GetString("voirRèglesToolStripMenuItem", dialogJoueur.ci);
+            voirInformationToolStripMenuItem.Text = rm.GetString("voirInformationToolStripMenuItem", dialogJoueur.ci);            
             statistiqueToolStripMenuItem.Text = rm.GetString("statistiqueToolStripMenuItem", dialogJoueur.ci);
             consulterStatistiqueToolStripMenuItem.Text = rm.GetString("consulterStatistiqueToolStripMenuItem", dialogJoueur.ci);
             langueToolStripMenuItem1.Text = rm.GetString("langueToolStripMenuItem", dialogJoueur.ci);
@@ -445,6 +443,7 @@ namespace JeuxDuPendu
             btnQuitter.Text = rm.GetString("btnQuitter", dialogJoueur.ci);
 
             ((dialogJoueur)Owner).Translation();
+            LangueDifficulte(langue, difficulte);
         }
 
         private void LangueDifficulte(Langues langue, NiveauDiff diff)
