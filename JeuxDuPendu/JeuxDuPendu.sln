@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JeuxDuPendu", "JeuxDuPendu\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServeurJeuDuPendu", "ServeurJeuDuPendu\ServeurJeuDuPendu.csproj", "{7C93545D-E092-4B6F-A4A2-C1B99C4F18E0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestJeuPendu", "TestJeuPendu\TestJeuPendu.csproj", "{67087981-08A1-4AD3-BB96-17637A4DD25D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,12 @@ Global
 		{7C93545D-E092-4B6F-A4A2-C1B99C4F18E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C93545D-E092-4B6F-A4A2-C1B99C4F18E0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7C93545D-E092-4B6F-A4A2-C1B99C4F18E0}.Release|x86.ActiveCfg = Release|Any CPU
+		{67087981-08A1-4AD3-BB96-17637A4DD25D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67087981-08A1-4AD3-BB96-17637A4DD25D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67087981-08A1-4AD3-BB96-17637A4DD25D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{67087981-08A1-4AD3-BB96-17637A4DD25D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67087981-08A1-4AD3-BB96-17637A4DD25D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67087981-08A1-4AD3-BB96-17637A4DD25D}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
