@@ -53,6 +53,12 @@
     <Compile Include="TestPendu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\JeuxDuPendu\JeuxDuPendu.csproj">
+      <Project>{fb550f46-1132-4a0f-8ba4-0a3b069aa3ac}</Project>
+      <Name>JeuxDuPendu</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

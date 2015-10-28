@@ -1,15 +1,24 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using JeuxDuPendu;
 
 namespace TestJeuPendu
 {
     [TestClass]
     public class TestPendu
     {
-        [TestMethod]
-        public void TestMethod1()
-        {
+        Mots unMot;
 
+        [TestInitialize]
+        public void init()
+        {
+            unMot = new Mots(Langues.Fraçais);
+        }
+
+        [TestMethod]
+        public void ChangerLangueDico()
+        {
+           
         }
     }
 }

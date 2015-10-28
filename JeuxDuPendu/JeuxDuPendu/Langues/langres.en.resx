@@ -166,7 +166,7 @@
     <value>Level :</value>
   </data>
   <data name="lblTNom" xml:space="preserve">
-    <value>User</value>
+    <value>User :</value>
   </data>
   <data name="multijoueurToolStripMenuItem" xml:space="preserve">
     <value>Multiplayer</value>
