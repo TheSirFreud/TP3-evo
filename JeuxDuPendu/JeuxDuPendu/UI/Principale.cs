@@ -165,24 +165,31 @@ namespace JeuxDuPendu
         //Lorsque perdu
         public void Perdu()
         {
-            if (partieEnLigne)
-                this.lblMotCourrant.Text = "PAS ASSEZ RAPIDE! PERDU";
             this.lblTSolution.Visible = true;
             this.lblSolution.Text = mot.motATrouver;
             this.lblSolution.Show();
             chrono.Stop();
             soundSample["perdu"].Play();
-            nbPartieJoue++;
             enJeu = false;
             activationBoutton(false);
-            mot.AjouterMot();
+
+            if (partieEnLigne)
+            {
+                leClient.EnvoyerPerdu();
+                this.lblMotCourrant.Text = "PERDU";
+                this.btnNouvellePartie.Enabled = false;
+            }
+            else
+            {
+                mot.AjouterMot();
+                nbPartieJoue++;
+            }
+                
             Utilitaire.updateSats(joueur.NoJoueur, false, difficulte);
         }
         //Lorsque gagné
         public void Gagne()
         {
-            if (partieEnLigne)
-                leClient.EnvoyerGagne();
             enJeu = false;
             this.lblSolution.Text = "BRAVO! VOUS AVEZ TROUVÉ LE MOT.";
             chrono.Stop();
@@ -190,10 +197,20 @@ namespace JeuxDuPendu
             this.lblSolution.Show();
             this.lblScore.Text = score.ToString();
             activationBoutton(false);
+
+            if (partieEnLigne)
+            {
+                leClient.EnvoyerGagne();
+                this.btnNouvellePartie.Enabled = false;
+            }
+            else
+            {
+                mot.AjouterMot();
+                nbPartieJoue++;
+            }
+                
             soundSample["gagne"].Play();
-            nbPartieJoue++;
-            mot.AjouterMot();
-            Utilitaire.updateSats(joueur.NoJoueur, true, difficulte);
+            Utilitaire.updateSats(joueur.NoJoueur, true, difficulte); 
         }
         //Met a jour l'image selon le nombre max de tour
         public void MAJImagePendu(int maxTour, PictureBox pbo)
@@ -215,6 +232,8 @@ namespace JeuxDuPendu
             mot.InitialiserMotsATrouver(motATrouver);
             partieEnLigne = true;
             button29_Click(this, null);
+            this.btnNouvellePartie.Text = "Partie en cours...";
+            this.btnNouvellePartie.Enabled = false;
         }
 
         //État d'une nouvelle partie (tout activé, seul le score reste inchangé)
@@ -375,13 +394,23 @@ namespace JeuxDuPendu
 
         private void démarrerToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            démarrerToolStripMenuItem.Enabled = false;
+            demarrerEnLigne();
+        }
+
+        public void demarrerEnLigne()
+        {
             //Tentative de connexion au serveur
             leClient =
-                new GestionnaireClientTCP("127.0.0.1", 1330, this, langue);
+                new GestionnaireClientTCP("127.0.0.1", 1330, this);
             if (!leClient.Connexion())
                 MessageBox.Show("Erreur : le serveur n'a pu être trouvé");
             else
+            {
+                this.btnNouvellePartie.Enabled = false;
+                this.btnNouvellePartie.Text = "Nouvelle partie prochainement...";
                 leClient.execBouclePrincipale();
+            }
         }
 
     }
