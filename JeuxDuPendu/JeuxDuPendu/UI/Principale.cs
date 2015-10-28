@@ -32,9 +32,9 @@ namespace JeuxDuPendu
         private Langues langue;
         private const int fin = 9;
         private int nbPartieJoue;
-        StringBuilder strBuild;
         private bool partieEnLigne;
         public static CultureInfo ci;
+        GestionnaireClientTCP leClient;
 
         // Initialisations
         public JeuxPendu(NiveauDiff niveauDiff, Joueur joueurCourrant)
@@ -168,7 +168,9 @@ namespace JeuxDuPendu
         //Lorsque perdu
         public void Perdu()
         {
-
+            if (partieEnLigne)
+                this.lblMotCourrant.Text = "PAS ASSEZ RAPIDE! PERDU";
+            this.lblTSolution.Visible = true;
             this.lblSolution.Text = mot.motATrouver;
             this.lblSolution.Show();
             chrono.Stop();
@@ -182,6 +184,8 @@ namespace JeuxDuPendu
         //Lorsque gagné
         public void Gagne()
         {
+            if (partieEnLigne)
+                leClient.EnvoyerGagne();
             enJeu = false;
             this.lblSolution.Text = "BRAVO! VOUS AVEZ TROUVÉ LE MOT.";
             chrono.Stop();
@@ -375,16 +379,12 @@ namespace JeuxDuPendu
         private void démarrerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //Tentative de connexion au serveur
-            GestionnaireClientTCP leClient =
+            leClient =
                 new GestionnaireClientTCP("127.0.0.1", 1330, this, langue);
             if (!leClient.Connexion())
                 MessageBox.Show("Erreur : le serveur n'a pu être trouvé");
             else
-            {
-                MessageBox.Show("Connexion au serveur réussie");
                 leClient.execBouclePrincipale();
-
-            }
         }
 
         private void francaisToolStripMenuItem_Click(object sender, EventArgs e)

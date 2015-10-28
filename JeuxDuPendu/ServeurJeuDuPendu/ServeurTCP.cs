@@ -62,7 +62,40 @@ namespace ServeurJeuDuPendu
             EnvoyerReponse(clientNo2, lesMots.Mot);
 
             Console.WriteLine("Le mot à trouver : " + lesMots.Mot);
+            Console.WriteLine("Attente d'un gagnant...");
+
+            //Attente de la réponse d'un des deux clients
+            while(!clientNo1.GetStream().DataAvailable && !clientNo2.GetStream().DataAvailable)
+                Thread.Sleep(50);
+
+            //Réception d'une réponse, envoi d'un message de fin au joueur perdant
+            if (clientNo1.GetStream().DataAvailable)
+            {
+                EnvoyerReponse(clientNo2, "Perdu");
+                Console.WriteLine("Le client no. 2 a perdu");
+            } 
+            else
+            {
+                EnvoyerReponse(clientNo1, "Perdu");
+                Console.WriteLine("Le client no. 1 a perdu");
+            }
+
             Console.ReadKey();
+        }
+
+        private string LireReponse(TcpClient expediteur)
+        {
+            byte[] buffer = new byte[256];
+            int nbrBytesLusTotal = 0;
+
+            //Lecture jusqu'à la fin
+            while (expediteur.GetStream().DataAvailable)
+            {
+                int nbrBytesLus = expediteur.GetStream().Read(buffer, nbrBytesLusTotal, buffer.Length - nbrBytesLusTotal);
+                nbrBytesLusTotal += nbrBytesLus;
+            }
+
+            return Encoding.Unicode.GetString(buffer, 0, nbrBytesLusTotal);
         }
 
         private void EnvoyerReponse(TcpClient destinataire, string message)
