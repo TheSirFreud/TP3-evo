@@ -14,47 +14,69 @@ namespace ServeurJeuDuPendu
     {
         //Attributs
         TcpListener lEcouteur;
+        string adresseIP;
+        int noPort;
         Mots lesMots;
-        //TODO : A changer
-        const Langues laLangue = Langues.Fraçais;
-        //int nbrJoueurs;
+        Langues laLangue;
 
+        //Constructeur
         public ServeurTCP(string adresseIP, int noPort)
         {
+            this.adresseIP = adresseIP;
+            this.noPort = noPort;
             this.lEcouteur = new System.Net.Sockets.TcpListener
                     (IPAddress.Parse(adresseIP), noPort);
-            //this.nbrJoueurs = 0;
         }
 
+        //Méthodes
+
+        /// <summary>
+        /// Démarrage des services utilisés
+        /// </summary>
         public void Demarrer()
         {
             lEcouteur.Start();
+            ExecBouclePrincipale();
         }
 
-        public void ExecBouclePrincipale()
+        /// <summary>
+        /// Boucle principale du serveur, à apeller dans Demarrer
+        /// </summary>
+        private void ExecBouclePrincipale()
         {
+            string strLangue;
+            if (laLangue == null)
+            {
+                do
+                {
+                    //Choix de la langue des clients
+                    Console.WriteLine("Quelle es la langue du serveur? (FR/EN)");
+                    strLangue = Console.ReadLine();
+
+                    if (strLangue.ToUpper() == "FR")
+                        laLangue = Langues.Fraçais;
+                    else if (strLangue.ToUpper() == "EN")
+                        laLangue = Langues.Anglais;
+                    else
+                        Console.WriteLine("Mauvais choix de langue");
+                }
+                while (strLangue.ToUpper() != "FR" && strLangue.ToUpper() != "EN");
+            }
+
             //Comme il ne peut qu'y avoir 2 joueurs pour un serveur,
             //coder le tout de manière linéaire
 
             Console.WriteLine("Attente de connexion...");
             TcpClient clientNo1 = lEcouteur.AcceptTcpClient();
 
-            //Un thread par client
-            //Thread threadPrClient = new Thread
-            //    (new ParameterizedThreadStart(GestionnaireClient));
-            //threadPrClient.Start();
-
             Console.WriteLine("Attente d'un deuxième joueur...");
             TcpClient clientNo2 = lEcouteur.AcceptTcpClient();
-
-            //threadPrClient = new Thread
-            //    (new ParameterizedThreadStart(GestionnaireClient));
-            //threadPrClient.Start();
 
             //Deux joueurs maintenant connectés, démarrer la partie
             Console.WriteLine("Deux joueurs, démarrage de la partie");
             Console.WriteLine("Génération et envoi du mot...");
 
+            //Création du mot
             lesMots = new Mots(laLangue);
             lesMots.InitialiserMotsATrouver();
 
@@ -62,27 +84,88 @@ namespace ServeurJeuDuPendu
             EnvoyerReponse(clientNo2, lesMots.Mot);
 
             Console.WriteLine("Le mot à trouver : " + lesMots.Mot);
-            Console.WriteLine("Attente d'un gagnant...");
+            Console.WriteLine("Attente d'un gagnant ou de deux perdants...");
 
             //Attente de la réponse d'un des deux clients
-            while(!clientNo1.GetStream().DataAvailable && !clientNo2.GetStream().DataAvailable)
+            while (!clientNo1.GetStream().DataAvailable && !clientNo2.GetStream().DataAvailable)
                 Thread.Sleep(50);
 
-            //Réception d'une réponse, envoi d'un message de fin au joueur perdant
-            if (clientNo1.GetStream().DataAvailable)
+            //Le client envoi soit "GAGNÉ" ou "PERDU" lorsqu'il fini la partie
+            bool aGagneC1 = false;
+            bool aGagneC2 = false;
+            bool aPerduC1 = false;
+            bool aPerduC2 = false;
+            bool lesDeuxClientsOntPerdus = false;
+
+            //Réception d'une réponse, envoi d'un message de fin lorsqu'un des deux clients a gagné, ou que les deux ont perdus,
+            //sinon attendre la réponse d'un client
+            while (!aGagneC1 && !aGagneC2 && !lesDeuxClientsOntPerdus)
             {
-                EnvoyerReponse(clientNo2, "Perdu");
-                Console.WriteLine("Le client no. 2 a perdu");
-            } 
-            else
-            {
-                EnvoyerReponse(clientNo1, "Perdu");
-                Console.WriteLine("Le client no. 1 a perdu");
+                if (clientNo1.GetStream().DataAvailable)
+                {
+                    string reponse = LireReponse(clientNo1);
+                    if (reponse == "GAGNÉ")
+                    {
+                        aGagneC1 = true;
+                        EnvoyerReponse(clientNo1, "GAGNÉ");
+                        EnvoyerReponse(clientNo2, "PERDU");
+                        Console.WriteLine("Le client no. 2 a perdu");
+                    }
+                    else if (reponse == "PERDU")
+                    {
+                        aPerduC1 = true;
+                    }
+                }
+                else if (clientNo2.GetStream().DataAvailable)
+                {
+                    string reponse = LireReponse(clientNo2);
+                    if (reponse == "GAGNÉ")
+                    {
+                        aGagneC2 = true;
+                        EnvoyerReponse(clientNo1, "PERDU");
+                        EnvoyerReponse(clientNo2, "GAGNÉ");
+                        Console.WriteLine("Le client no. 1 a perdu");
+                    }
+                    else if (reponse == "PERDU")
+                    {
+                        aPerduC2 = true;
+                    }
+                }
+
+                if (aPerduC1 && aPerduC2)
+                {
+                    lesDeuxClientsOntPerdus = true;
+                    EnvoyerReponse(clientNo1, "PERDU");
+                    EnvoyerReponse(clientNo2, "PERDU");
+                }
+
+                Thread.Sleep(50);
             }
 
-            Console.ReadKey();
+            //Ajout du mot essayé
+            lesMots.AjouterMot();
+            //Redémarrer le jeu
+            RedemarrerPartie();
         }
 
+        /// <summary>
+        /// Méthode permettant de recommencer une partie
+        /// </summary>
+        public void RedemarrerPartie()
+        {
+            Console.WriteLine("La partie redémarre...");
+            lEcouteur.Stop();
+            //Réinitialisation du serveur
+            lEcouteur = new System.Net.Sockets.TcpListener
+                    (IPAddress.Parse(adresseIP), noPort);
+            Demarrer();
+        }
+
+        /// <summary>
+        /// Méthode permettant de lire une réponse d'un expéditeur TCP
+        /// </summary>
+        /// <param name="expediteur">L'expéditeur du message</param>
+        /// <returns>La réponse de l'expéditeur</returns>
         private string LireReponse(TcpClient expediteur)
         {
             byte[] buffer = new byte[256];
@@ -98,33 +181,15 @@ namespace ServeurJeuDuPendu
             return Encoding.Unicode.GetString(buffer, 0, nbrBytesLusTotal);
         }
 
+        /// <summary>
+        /// Méthode permettant d'envoyer un message à un destinataire TCP
+        /// </summary>
+        /// <param name="destinataire">Le destinataire TCP</param>
+        /// <param name="message">Le message à envoyer</param>
         private void EnvoyerReponse(TcpClient destinataire, string message)
         {
             byte[] byteReponse = Encoding.Unicode.GetBytes(message);
             destinataire.GetStream().Write(byteReponse, 0, byteReponse.Length);
         }
-
-        //public void GestionnaireClient(object clientTCP)
-        //{
-        //    //Connexion de joueur, donc un joueur de plus
-        //    nbrJoueurs++;
-
-        //    TcpClient unClient = clientTCP as TcpClient;
-
-        //    //Envoi du mot à trouver au client,
-        //    //ou du message d'attente d'un autre client
-
-        //    while (nbrJoueurs < 2)
-        //    {
-        //        Thread.Sleep(500);
-        //    }
-
-        //    bool finExec = false;
-        //    while (!finExec)
-        //    {
-        //        //?
-        //        Thread.Sleep(500);
-        //    }
-        //}
     }
 }
