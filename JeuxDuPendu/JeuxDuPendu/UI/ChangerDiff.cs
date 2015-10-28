@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Reflection;
+using System.Globalization;
+using System.Resources;
 
 namespace JeuxDuPendu
 {
@@ -17,6 +20,7 @@ namespace JeuxDuPendu
         {
             InitializeComponent();
             NiveauDiff = niveauActuelle;
+            Translation();
         }
 
         private void btnChanger_Click(object sender, EventArgs e)
@@ -55,6 +59,19 @@ namespace JeuxDuPendu
                     radDifficile.Checked = true;
                     break;
             }
+        }
+        private void Translation()
+        {
+            Assembly assembly = Assembly.Load("JeuxDuPendu");
+            ResourceManager rm = new ResourceManager("JeuxDuPendu.Langues.langres", assembly);
+
+            this.Text = rm.GetString("ChangerDiff", JeuxPendu.ci);
+            groupBox1.Text = rm.GetString("gbxDifficulté", JeuxPendu.ci);
+            radFacile.Text = rm.GetString("radFacile", JeuxPendu.ci);
+            radMoyen.Text = rm.GetString("radMoyen", JeuxPendu.ci);
+            radDifficile.Text = rm.GetString("radDifficile", JeuxPendu.ci);
+            btnChanger.Text = rm.GetString("btnChanger", JeuxPendu.ci);
+            btnAnnuler.Text = rm.GetString("btnAnnuler", JeuxPendu.ci);
         }
     }
 }

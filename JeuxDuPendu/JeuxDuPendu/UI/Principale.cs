@@ -11,6 +11,9 @@ using System.Media;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
+using System.Globalization;
+using System.Resources;
+using System.Reflection;
 
 namespace JeuxDuPendu
 {
@@ -30,6 +33,7 @@ namespace JeuxDuPendu
         private const int fin = 9;
         private int nbPartieJoue;
         private bool partieEnLigne;
+        public static CultureInfo ci;
         GestionnaireClientTCP leClient;
 
         // Initialisations
@@ -383,5 +387,46 @@ namespace JeuxDuPendu
                 leClient.execBouclePrincipale();
         }
 
+        private void francaisToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ci = new CultureInfo("fr-FR");
+            Translation();
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            ci = new CultureInfo("en-CA");
+            Translation();
+        }
+        private void Translation()
+        {
+            Assembly assembly = Assembly.Load("JeuxDuPendu");
+            ResourceManager rm = new ResourceManager("JeuxDuPendu.Langues.langres", assembly);
+
+
+            jeuEnRéseauToolStripMenuItem.Text = rm.GetString("jeuEnRéseauToolStripMenuItem", ci);
+            démarrerToolStripMenuItem.Text = rm.GetString("démarrerToolStripMenuItem", ci);
+            changerDifficultéToolStripMenuItem.Text = rm.GetString("facileToolStripMenuItem", ci);
+            optionsToolStripMenuItem.Text = rm.GetString("optionsToolStripMenuItem", ci);
+            changerDutilisateurToolStripMenuItem.Text = rm.GetString("changerDutilisateurToolStripMenuItem", ci);
+            multijoueurToolStripMenuItem.Text = rm.GetString("multijoueurToolStripMenuItem", ci);
+            àProposToolStripMenuItem.Text = rm.GetString("àProposToolStripMenuItem", ci);
+            voirInformationToolStripMenuItem.Text = rm.GetString("voirInformationToolStripMenuItem", ci);
+            règlesToolStripMenuItem.Text = rm.GetString("règlesToolStripMenuItem", ci);
+            voirRèglesToolStripMenuItem.Text = rm.GetString("voirRèglesToolStripMenuItem", ci);
+            statistiqueToolStripMenuItem.Text = rm.GetString("statistiqueToolStripMenuItem", ci);
+            consulterStatistiqueToolStripMenuItem.Text = rm.GetString("consulterStatistiqueToolStripMenuItem", ci);
+            langueToolStripMenuItem1.Text = rm.GetString("langueToolStripMenuItem", ci);
+            lblTNiveau.Text = rm.GetString("lblTNiveau", ci);
+            lblTNom.Text = rm.GetString("lblTNom", ci);
+            lblTempsReflexion.Text = rm.GetString("lblTempsReflexion", ci);
+            btnNouvellePartie.Text = rm.GetString("btnNouvellePartie", ci);
+            btnQuitter.Text = rm.GetString("btnQuitter", ci);
+            
+
+        }
+
+
+        
     }
 }
