@@ -173,10 +173,21 @@ namespace JeuxDuPendu
             this.lblSolution.Show();
             chrono.Stop();
             soundSample["perdu"].Play();
-            nbPartieJoue++;
             enJeu = false;
             activationBoutton(false);
-            mot.AjouterMot();
+
+            if (partieEnLigne)
+            {
+                leClient.EnvoyerPerdu();
+                this.lblMotCourrant.Text = "PERDU";
+                this.btnNouvellePartie.Enabled = false;
+            }
+            else
+            {
+                mot.AjouterMot();
+                nbPartieJoue++;
+            }
+                
             Utilitaire.updateSats(joueur.NoJoueur, false, difficulte);
         }
         //Lorsque gagné
@@ -190,10 +201,20 @@ namespace JeuxDuPendu
             this.lblSolution.Show();
             this.lblScore.Text = score.ToString();
             activationBoutton(false);
+
+            if (partieEnLigne)
+            {
+                leClient.EnvoyerGagne();
+                this.btnNouvellePartie.Enabled = false;
+            }
+            else
+            {
+                mot.AjouterMot();
+                nbPartieJoue++;
+            }
+                
             soundSample["gagne"].Play();
-            nbPartieJoue++;
-            mot.AjouterMot();
-            Utilitaire.updateSats(joueur.NoJoueur, true, difficulte);
+            Utilitaire.updateSats(joueur.NoJoueur, true, difficulte); 
         }
         //Met a jour l'image selon le nombre max de tour
         public void MAJImagePendu(int maxTour, PictureBox pbo)
@@ -215,6 +236,8 @@ namespace JeuxDuPendu
             mot.InitialiserMotsATrouver(motATrouver);
             partieEnLigne = true;
             button29_Click(this, null);
+            this.btnNouvellePartie.Text = "Partie en cours...";
+            this.btnNouvellePartie.Enabled = false;
         }
 
         //État d'une nouvelle partie (tout activé, seul le score reste inchangé)
@@ -360,46 +383,54 @@ namespace JeuxDuPendu
 
         private void button10_Click_1(object sender, EventArgs e)
         {
-            if (langue == Langues.Anglais)
-            {
-                langue = Langues.Fraçais;
-            }
-            else
-            {
-                langue = Langues.Anglais;
-            }
-            bgChangDico.RunWorkerAsync();
-            EtatNeutre();
+
         }
 
         private void démarrerToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            démarrerToolStripMenuItem.Enabled = false;
+            demarrerEnLigne();
+        }
+
+        public void demarrerEnLigne()
+        {
             //Tentative de connexion au serveur
             leClient =
-                new GestionnaireClientTCP("127.0.0.1", 1330, this, langue);
+                new GestionnaireClientTCP("127.0.0.1", 1330, this);
             if (!leClient.Connexion())
                 MessageBox.Show("Erreur : le serveur n'a pu être trouvé");
             else
+            {
+                this.btnNouvellePartie.Enabled = false;
+                this.btnNouvellePartie.Text = "Nouvelle partie prochainement...";
                 leClient.execBouclePrincipale();
+            }
         }
 
-        private void francaisToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            dialogJoueur.ci = new CultureInfo("fr-FR");
-            Translation();
-        }
+
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            dialogJoueur.ci = new CultureInfo("en-CA");
+            switch (((ToolStripMenuItem)sender).Text)
+            {
+                case "Francais":
+                    ci = new CultureInfo("fr-FR");
+                langue = Langues.Fraçais;
+                    break;
+                case "English":
+                     ci = new CultureInfo("en-CA");
+                langue = Langues.Anglais;
+                    break;
+            }           
             Translation();
-
+            bgChangDico.RunWorkerAsync();
+            EtatNeutre();
         }
+
         private void Translation()
         {
             Assembly assembly = Assembly.Load("JeuxDuPendu");
             ResourceManager rm = new ResourceManager("JeuxDuPendu.Langues.langres", assembly);
-
 
             jeuEnRéseauToolStripMenuItem.Text = rm.GetString("jeuEnRéseauToolStripMenuItem", dialogJoueur.ci);
             démarrerToolStripMenuItem.Text = rm.GetString("démarrerToolStripMenuItem", dialogJoueur.ci);
@@ -425,6 +456,6 @@ namespace JeuxDuPendu
         }
 
 
-        
+
     }
 }
