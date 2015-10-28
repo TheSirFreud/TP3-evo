@@ -71,7 +71,7 @@ namespace JeuxDuPendu
 
         //Getter et setter
 
-        public Mots Mots { set { this.mot = value; } }
+        public Mots Mots { get; set; }
 
         //Permet de changer la dificulté
         public void ChangerDifficulte(NiveauDiff niveauDiff)
@@ -168,8 +168,7 @@ namespace JeuxDuPendu
         //Lorsque perdu
         public void Perdu()
         {
-            if (partieEnLigne)
-                this.lblMotCourrant.Text = "PAS ASSEZ RAPIDE! PERDU";
+            if (partieEnLigne) { this.lblMotCourrant.Text = "PAS ASSEZ RAPIDE! PERDU"; }
             this.lblTSolution.Visible = true;
             this.lblSolution.Text = mot.motATrouver;
             this.lblSolution.Show();
@@ -184,8 +183,7 @@ namespace JeuxDuPendu
         //Lorsque gagné
         public void Gagne()
         {
-            if (partieEnLigne)
-                leClient.EnvoyerGagne();
+            if (partieEnLigne) { leClient.EnvoyerGagne(); }
             enJeu = false;
             this.lblSolution.Text = "BRAVO! VOUS AVEZ TROUVÉ LE MOT.";
             chrono.Stop();
@@ -230,10 +228,10 @@ namespace JeuxDuPendu
             lblSolution.Hide();
             chrono.Start();
 
-            //Comme le mot es déjà initialisé s'il y a une partie en ligne
+            //Comme le mot est déjà initialisé s'il y a une partie en ligne
             if (!partieEnLigne)
                 mot.InitialiserMotsATrouver();
- 
+
             lblMotCourrant.Text = mot.motCourant;
             MAJImagePendu(maxTours, pboPendu);
             activationBoutton(true);
@@ -345,7 +343,6 @@ namespace JeuxDuPendu
         private void bgChangDico_DoWork(object sender, DoWorkEventArgs e)
         {
             mot.InitialiserDico(langue);
-           
         }
 
         private void bgChangDico_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
