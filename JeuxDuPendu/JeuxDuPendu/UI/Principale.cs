@@ -409,6 +409,7 @@ namespace JeuxDuPendu
 
 
 
+
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
             switch (((ToolStripMenuItem)sender).Text)
@@ -425,13 +426,13 @@ namespace JeuxDuPendu
             }           
             Translation();
             bgChangDico.RunWorkerAsync();
-            EtatNeutre();
-        }
+            EtatNeutre();        }
 
         private void Translation()
         {
             Assembly assembly = Assembly.Load("JeuxDuPendu");
             ResourceManager rm = new ResourceManager("JeuxDuPendu.Langues.langres", assembly);
+
 
             jeuEnRéseauToolStripMenuItem.Text = rm.GetString("jeuEnRéseauToolStripMenuItem", dialogJoueur.ci);
             démarrerToolStripMenuItem.Text = rm.GetString("démarrerToolStripMenuItem", dialogJoueur.ci);
@@ -453,9 +454,7 @@ namespace JeuxDuPendu
             btnQuitter.Text = rm.GetString("btnQuitter", dialogJoueur.ci);
 
             ((dialogJoueur)Owner).Translation();
-
-        }
-
+		}
         private void LangueDifficulte(Langues langue, NiveauDiff diff)
         {
             switch (diff)
