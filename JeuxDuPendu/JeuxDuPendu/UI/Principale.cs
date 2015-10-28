@@ -414,12 +414,13 @@ namespace JeuxDuPendu
             switch (((ToolStripMenuItem)sender).Text)
             {
                 case "Francais":
-                    ci = new CultureInfo("fr-FR");
-                langue = Langues.Fraçais;
+                    dialogJoueur.ci = new CultureInfo("fr-FR");
+                    langue = Langues.Fraçais;
+
                     break;
                 case "English":
-                     ci = new CultureInfo("en-CA");
-                langue = Langues.Anglais;
+                    dialogJoueur.ci = new CultureInfo("en-CA");
+                    langue = Langues.Anglais;
                     break;
             }           
             Translation();
@@ -453,6 +454,24 @@ namespace JeuxDuPendu
 
             ((dialogJoueur)Owner).Translation();
 
+        }
+
+        private void LangueDifficulte(Langues langue, NiveauDiff diff)
+        {
+            switch (diff)
+            {
+                case NiveauDiff.Facile:
+                    lblNiveau.Text = langue == Langues.Fraçais ? Utilitaire.GetDescription(diff): "Easy";
+                    break;
+                case NiveauDiff.Moyen:
+                    lblNiveau.Text = langue == Langues.Fraçais ? Utilitaire.GetDescription(diff) : "Average";
+                    break;
+                case NiveauDiff.Difficile:
+                    lblNiveau.Text = langue == Langues.Fraçais ? Utilitaire.GetDescription(diff) : "Hard";
+                    break;
+                default:
+                    break;
+            }
         }
 
 
