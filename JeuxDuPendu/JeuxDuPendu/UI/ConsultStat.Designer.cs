@@ -44,6 +44,7 @@
             this.lblScore2 = new System.Windows.Forms.Label();
             this.lblScore1 = new System.Windows.Forms.Label();
             this.lblTop = new System.Windows.Forms.Label();
+            this.btnReset = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblTitre
@@ -61,27 +62,27 @@
             this.lblGagne.AutoSize = true;
             this.lblGagne.Location = new System.Drawing.Point(196, 87);
             this.lblGagne.Name = "lblGagne";
-            this.lblGagne.Size = new System.Drawing.Size(35, 13);
+            this.lblGagne.Size = new System.Drawing.Size(13, 13);
             this.lblGagne.TabIndex = 1;
-            this.lblGagne.Text = "label2";
+            this.lblGagne.Text = "0";
             // 
             // lblPerdu
             // 
             this.lblPerdu.AutoSize = true;
             this.lblPerdu.Location = new System.Drawing.Point(196, 131);
             this.lblPerdu.Name = "lblPerdu";
-            this.lblPerdu.Size = new System.Drawing.Size(35, 13);
+            this.lblPerdu.Size = new System.Drawing.Size(13, 13);
             this.lblPerdu.TabIndex = 2;
-            this.lblPerdu.Text = "label3";
+            this.lblPerdu.Text = "0";
             // 
             // lblPourcentage
             // 
             this.lblPourcentage.AutoSize = true;
             this.lblPourcentage.Location = new System.Drawing.Point(196, 173);
             this.lblPourcentage.Name = "lblPourcentage";
-            this.lblPourcentage.Size = new System.Drawing.Size(35, 13);
+            this.lblPourcentage.Size = new System.Drawing.Size(13, 13);
             this.lblPourcentage.TabIndex = 3;
-            this.lblPourcentage.Text = "label3";
+            this.lblPourcentage.Text = "0";
             // 
             // label1
             // 
@@ -124,9 +125,9 @@
             this.lblScore.AutoSize = true;
             this.lblScore.Location = new System.Drawing.Point(196, 215);
             this.lblScore.Name = "lblScore";
-            this.lblScore.Size = new System.Drawing.Size(35, 13);
+            this.lblScore.Size = new System.Drawing.Size(13, 13);
             this.lblScore.TabIndex = 7;
-            this.lblScore.Text = "label3";
+            this.lblScore.Text = "0";
             // 
             // lbl3
             // 
@@ -191,11 +192,22 @@
             this.lblTop.TabIndex = 15;
             this.lblTop.Text = "Top 3";
             // 
+            // btnReset
+            // 
+            this.btnReset.Location = new System.Drawing.Point(467, 227);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(112, 23);
+            this.btnReset.TabIndex = 16;
+            this.btnReset.Text = "Effacer Statistique";
+            this.btnReset.UseVisualStyleBackColor = true;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
+            // 
             // ConsultStat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(591, 262);
+            this.Controls.Add(this.btnReset);
             this.Controls.Add(this.lblTop);
             this.Controls.Add(this.lbl3);
             this.Controls.Add(this.lbl2);
@@ -213,6 +225,7 @@
             this.Controls.Add(this.lblGagne);
             this.Controls.Add(this.lblTitre);
             this.Name = "ConsultStat";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ConsultStat";
             this.Load += new System.EventHandler(this.ConsultStat_Load);
             this.ResumeLayout(false);
@@ -238,5 +251,6 @@
         private System.Windows.Forms.Label lblScore2;
         private System.Windows.Forms.Label lblScore1;
         private System.Windows.Forms.Label lblTop;
+        private System.Windows.Forms.Button btnReset;
     }
 }

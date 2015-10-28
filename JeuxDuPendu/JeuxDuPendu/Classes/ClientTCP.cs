@@ -9,7 +9,7 @@ using System.Threading;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Forms;
-using System.Windows;
+
 
 namespace JeuxDuPendu
 {
@@ -19,7 +19,6 @@ namespace JeuxDuPendu
         JeuxPendu parent;
         string adresseIP;
         int noPort;
-        Langues laLangue;
         TcpClient leClient;
         string leMotADevinerRecu;
         BackgroundWorker bwAttReponseStatusPartie;
@@ -46,7 +45,7 @@ namespace JeuxDuPendu
             {
                 leClient = new TcpClient(adresseIP, noPort);
             }
-            catch (SocketException err)
+            catch (SocketException)
             {
                 return false;
             }
