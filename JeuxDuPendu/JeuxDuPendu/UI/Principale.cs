@@ -68,10 +68,7 @@ namespace JeuxDuPendu
             ChangerDifficulte(difficulte);
         }
 
-        //Getter et setter
-
-        public Mots Mots { get; set; }
-
+       
         //Permet de changer la dificulté
         public void ChangerDifficulte(NiveauDiff niveauDiff)
         {
@@ -381,7 +378,6 @@ namespace JeuxDuPendu
 
         }
    
-
         private void démarrerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             démarrerToolStripMenuItem.Enabled = false;

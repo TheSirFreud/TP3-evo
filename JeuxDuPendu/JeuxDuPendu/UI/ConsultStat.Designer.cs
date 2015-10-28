@@ -44,6 +44,7 @@
             this.lblScore2 = new System.Windows.Forms.Label();
             this.lblScore1 = new System.Windows.Forms.Label();
             this.lblTop = new System.Windows.Forms.Label();
+            this.btnReset = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblTitre
@@ -191,11 +192,22 @@
             this.lblTop.TabIndex = 15;
             this.lblTop.Text = "Top 3";
             // 
+            // btnReset
+            // 
+            this.btnReset.Location = new System.Drawing.Point(467, 227);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(112, 23);
+            this.btnReset.TabIndex = 16;
+            this.btnReset.Text = "Effacer Statistique";
+            this.btnReset.UseVisualStyleBackColor = true;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
+            // 
             // ConsultStat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(591, 262);
+            this.Controls.Add(this.btnReset);
             this.Controls.Add(this.lblTop);
             this.Controls.Add(this.lbl3);
             this.Controls.Add(this.lbl2);
@@ -238,5 +250,6 @@
         private System.Windows.Forms.Label lblScore2;
         private System.Windows.Forms.Label lblScore1;
         private System.Windows.Forms.Label lblTop;
+        private System.Windows.Forms.Button btnReset;
     }
 }

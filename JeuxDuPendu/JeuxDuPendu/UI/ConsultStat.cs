@@ -50,5 +50,13 @@ namespace JeuxDuPendu
             label2.Text = rm.GetString("statsPartiesP", dialogJoueur.ci);
             label3.Text = rm.GetString("statsPourcent", dialogJoueur.ci);
         }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Voulez-vous effacer vos statistique", "Attention", MessageBoxButtons.YesNo, MessageBoxIcon.Hand) == DialogResult.Yes)
+            {
+
+            }
+        }
     }
 }
