@@ -29,7 +29,6 @@ namespace JeuxDuPendu
         private Langues langue;
         private const int fin = 9;
         private int nbPartieJoue;
-        StringBuilder strBuild;
         private bool partieEnLigne;
 
         // Initialisations
