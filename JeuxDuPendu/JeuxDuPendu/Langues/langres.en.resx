@@ -222,4 +222,10 @@
   <data name="titrePropos" xml:space="preserve">
     <value>Title</value>
   </data>
+  <data name="creerpar" xml:space="preserve">
+    <value>Created by :</value>
+  </data>
+  <data name="jouer" xml:space="preserve">
+    <value>Play</value>
+  </data>
 </root>

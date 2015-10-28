@@ -33,7 +33,6 @@ namespace JeuxDuPendu
         private const int fin = 9;
         private int nbPartieJoue;
         private bool partieEnLigne;
-        public static CultureInfo ci;
         GestionnaireClientTCP leClient;
 
         // Initialisations
@@ -69,10 +68,7 @@ namespace JeuxDuPendu
             ChangerDifficulte(difficulte);
         }
 
-        //Getter et setter
-
-        public Mots Mots { get; set; }
-
+       
         //Permet de changer la dificulté
         public void ChangerDifficulte(NiveauDiff niveauDiff)
         {
@@ -381,21 +377,7 @@ namespace JeuxDuPendu
             }
 
         }
-
-        private void button10_Click_1(object sender, EventArgs e)
-        {
-            if (langue == Langues.Anglais)
-            {
-                langue = Langues.Fraçais;
-            }
-            else
-            {
-                langue = Langues.Anglais;
-            }
-            bgChangDico.RunWorkerAsync();
-            EtatNeutre();
-        }
-
+   
         private void démarrerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             démarrerToolStripMenuItem.Enabled = false;
@@ -417,46 +399,96 @@ namespace JeuxDuPendu
             }
         }
 
-        private void francaisToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ci = new CultureInfo("fr-FR");
-            Translation();
-        }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> refs/remotes/origin/master
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            ci = new CultureInfo("en-CA");
+            switch (((ToolStripMenuItem)sender).Text)
+            {
+                case "Francais":
+                    dialogJoueur.ci = new CultureInfo("fr-FR");
+<<<<<<< HEAD
+                langue = Langues.Fraçais;
+                    break;
+                case "English":
+                    dialogJoueur.ci = new CultureInfo("en-CA");
+                langue = Langues.Anglais;
+=======
+                    langue = Langues.Fraçais;
+
+                    break;
+                case "English":
+                    dialogJoueur.ci = new CultureInfo("en-CA");
+                    langue = Langues.Anglais;
+>>>>>>> refs/remotes/origin/master
+                    break;
+            }           
             Translation();
+            bgChangDico.RunWorkerAsync();
+<<<<<<< HEAD
+            EtatNeutre();
+
         }
+=======
+            EtatNeutre();        }
+
+>>>>>>> refs/remotes/origin/master
         private void Translation()
         {
             Assembly assembly = Assembly.Load("JeuxDuPendu");
             ResourceManager rm = new ResourceManager("JeuxDuPendu.Langues.langres", assembly);
 
+<<<<<<< HEAD
+=======
 
-            jeuEnRéseauToolStripMenuItem.Text = rm.GetString("jeuEnRéseauToolStripMenuItem", ci);
-            démarrerToolStripMenuItem.Text = rm.GetString("démarrerToolStripMenuItem", ci);
-            changerDifficultéToolStripMenuItem.Text = rm.GetString("facileToolStripMenuItem", ci);
-            optionsToolStripMenuItem.Text = rm.GetString("optionsToolStripMenuItem", ci);
-            changerDutilisateurToolStripMenuItem.Text = rm.GetString("changerDutilisateurToolStripMenuItem", ci);
-            multijoueurToolStripMenuItem.Text = rm.GetString("multijoueurToolStripMenuItem", ci);
-            àProposToolStripMenuItem.Text = rm.GetString("àProposToolStripMenuItem", ci);
-            voirInformationToolStripMenuItem.Text = rm.GetString("voirInformationToolStripMenuItem", ci);
-            règlesToolStripMenuItem.Text = rm.GetString("règlesToolStripMenuItem", ci);
-            voirRèglesToolStripMenuItem.Text = rm.GetString("voirRèglesToolStripMenuItem", ci);
-            statistiqueToolStripMenuItem.Text = rm.GetString("statistiqueToolStripMenuItem", ci);
-            consulterStatistiqueToolStripMenuItem.Text = rm.GetString("consulterStatistiqueToolStripMenuItem", ci);
-            langueToolStripMenuItem1.Text = rm.GetString("langueToolStripMenuItem", ci);
-            lblTNiveau.Text = rm.GetString("lblTNiveau", ci);
-            lblTNom.Text = rm.GetString("lblTNom", ci);
-            lblTempsReflexion.Text = rm.GetString("lblTempsReflexion", ci);
-            btnNouvellePartie.Text = rm.GetString("btnNouvellePartie", ci);
-            btnQuitter.Text = rm.GetString("btnQuitter", ci);
-            
+>>>>>>> refs/remotes/origin/master
+            jeuEnRéseauToolStripMenuItem.Text = rm.GetString("jeuEnRéseauToolStripMenuItem", dialogJoueur.ci);
+            démarrerToolStripMenuItem.Text = rm.GetString("démarrerToolStripMenuItem", dialogJoueur.ci);
+            changerDifficultéToolStripMenuItem.Text = rm.GetString("facileToolStripMenuItem", dialogJoueur.ci);
+            optionsToolStripMenuItem.Text = rm.GetString("optionsToolStripMenuItem", dialogJoueur.ci);
+            changerDutilisateurToolStripMenuItem.Text = rm.GetString("changerDutilisateurToolStripMenuItem", dialogJoueur.ci);
+            multijoueurToolStripMenuItem.Text = rm.GetString("multijoueurToolStripMenuItem", dialogJoueur.ci);
+            àProposToolStripMenuItem.Text = rm.GetString("àProposToolStripMenuItem", dialogJoueur.ci);
+            voirInformationToolStripMenuItem.Text = rm.GetString("voirInformationToolStripMenuItem", dialogJoueur.ci);
+            règlesToolStripMenuItem.Text = rm.GetString("règlesToolStripMenuItem", dialogJoueur.ci);
+            voirRèglesToolStripMenuItem.Text = rm.GetString("voirRèglesToolStripMenuItem", dialogJoueur.ci);
+            statistiqueToolStripMenuItem.Text = rm.GetString("statistiqueToolStripMenuItem", dialogJoueur.ci);
+            consulterStatistiqueToolStripMenuItem.Text = rm.GetString("consulterStatistiqueToolStripMenuItem", dialogJoueur.ci);
+            langueToolStripMenuItem1.Text = rm.GetString("langueToolStripMenuItem", dialogJoueur.ci);
+            lblTNiveau.Text = rm.GetString("lblTNiveau", dialogJoueur.ci);
+            lblTNom.Text = rm.GetString("lblTNom", dialogJoueur.ci);
+            lblTempsReflexion.Text = rm.GetString("lblTempsReflexion", dialogJoueur.ci);
+            btnNouvellePartie.Text = rm.GetString("btnNouvellePartie", dialogJoueur.ci);
+            btnQuitter.Text = rm.GetString("btnQuitter", dialogJoueur.ci);
 
+            ((dialogJoueur)Owner).Translation();
+<<<<<<< HEAD
+=======
+		}
+        private void LangueDifficulte(Langues langue, NiveauDiff diff)
+        {
+            switch (diff)
+            {
+                case NiveauDiff.Facile:
+                    lblNiveau.Text = langue == Langues.Fraçais ? Utilitaire.GetDescription(diff): "Easy";
+                    break;
+                case NiveauDiff.Moyen:
+                    lblNiveau.Text = langue == Langues.Fraçais ? Utilitaire.GetDescription(diff) : "Average";
+                    break;
+                case NiveauDiff.Difficile:
+                    lblNiveau.Text = langue == Langues.Fraçais ? Utilitaire.GetDescription(diff) : "Hard";
+                    break;
+                default:
+                    break;
+            }
+>>>>>>> refs/remotes/origin/master
         }
 
 
-        
+
     }
 }

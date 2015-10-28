@@ -11,6 +11,7 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Diagnostics;
 
+
 namespace JeuxDuPendu
 {
     class GestionnaireClientTCP
@@ -19,7 +20,6 @@ namespace JeuxDuPendu
         JeuxPendu parent;
         string adresseIP;
         int noPort;
-        Langues laLangue;
         TcpClient leClient;
         string leMotADevinerRecu;
         BackgroundWorker bwAttReponseStatusPartie;
@@ -46,7 +46,7 @@ namespace JeuxDuPendu
             {
                 leClient = new TcpClient(adresseIP, noPort);
             }
-            catch (SocketException err)
+            catch (SocketException)
             {
                 return false;
             }

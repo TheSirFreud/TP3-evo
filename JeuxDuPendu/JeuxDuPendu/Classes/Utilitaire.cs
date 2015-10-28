@@ -230,7 +230,7 @@ namespace JeuxDuPendu
             {
                 connexion.Open();
 
-                commande = new OleDbCommand("UPDATE tblStatistique SET nbPartieGagne = 0,nPartiePerdu=0, score=0 WHERE noJoueur=@noJoueur", connexion);
+                commande = new OleDbCommand("UPDATE tblStatistique SET nbPartieGagne=0,nbPartiePerdu=0, score=0 WHERE noJoueur=@noJoueur", connexion);
                 commande.Parameters.Add("@noJoueur", OleDbType.Integer).Value = noJoueur;
                 commande.ExecuteNonQuery();
             }
