@@ -168,7 +168,6 @@ namespace JeuxDuPendu
         //Lorsque perdu
         public void Perdu()
         {
-            if (partieEnLigne) { this.lblMotCourrant.Text = "PAS ASSEZ RAPIDE! PERDU"; }
             this.lblTSolution.Visible = true;
             this.lblSolution.Text = mot.motATrouver;
             this.lblSolution.Show();
@@ -194,7 +193,6 @@ namespace JeuxDuPendu
         //Lorsque gagné
         public void Gagne()
         {
-            if (partieEnLigne) { leClient.EnvoyerGagne(); }
             enJeu = false;
             this.lblSolution.Text = "BRAVO! VOUS AVEZ TROUVÉ LE MOT.";
             chrono.Stop();
@@ -236,8 +234,10 @@ namespace JeuxDuPendu
         {
             mot.InitialiserMotsATrouver(motATrouver);
             partieEnLigne = true;
-            button29_Click(this, null);
+            nouvellePartie = true;
+            button29_Click(null, null);
             this.btnNouvellePartie.Text = "Partie en cours...";
+            chrono.Start();
             this.btnNouvellePartie.Enabled = false;
         }
 
