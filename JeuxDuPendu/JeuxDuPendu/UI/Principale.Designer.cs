@@ -88,7 +88,6 @@
             this.lblCountDown = new System.Windows.Forms.Label();
             this.pboPendu = new System.Windows.Forms.PictureBox();
             this.bgChangDico = new System.ComponentModel.BackgroundWorker();
-            this.button10 = new System.Windows.Forms.Button();
             this.menuPrincipal.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboPendu)).BeginInit();
             this.SuspendLayout();
@@ -523,13 +522,14 @@
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(117, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.toolStripMenuItem1.Text = "Francais";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(117, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
             this.toolStripMenuItem2.Text = "English";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
@@ -680,23 +680,12 @@
             this.bgChangDico.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgChangDico_DoWork);
             this.bgChangDico.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgChangDico_RunWorkerCompleted);
             // 
-            // button10
-            // 
-            this.button10.Location = new System.Drawing.Point(459, 149);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(75, 23);
-            this.button10.TabIndex = 44;
-            this.button10.Text = "button10";
-            this.button10.UseVisualStyleBackColor = true;
-            this.button10.Click += new System.EventHandler(this.button10_Click_1);
-            // 
             // JeuxPendu
             // 
             this.AcceptButton = this.btnNouvellePartie;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(564, 601);
-            this.Controls.Add(this.button10);
             this.Controls.Add(this.lblCountDown);
             this.Controls.Add(this.lblNiveau);
             this.Controls.Add(this.lblTNiveau);
@@ -811,7 +800,6 @@
         private System.Windows.Forms.ToolStripMenuItem consulterStatistiqueToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem changerDifficultéToolStripMenuItem;
         private System.ComponentModel.BackgroundWorker bgChangDico;
-        private System.Windows.Forms.Button button10;
         private System.Windows.Forms.ToolStripMenuItem jeuEnRéseauToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem démarrerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem langueToolStripMenuItem1;
