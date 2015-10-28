@@ -45,10 +45,10 @@ namespace JeuxDuPendu
             Assembly assembly = Assembly.Load("JeuxDuPendu");
             ResourceManager rm = new ResourceManager("JeuxDuPendu.Langues.langres", assembly);
 
-            this.Text = rm.GetString("statistiqueToolStripMenuItem", JeuxPendu.ci);
-            label1.Text = rm.GetString("statsPartiesG", JeuxPendu.ci);
-            label2.Text = rm.GetString("statsPartiesP", JeuxPendu.ci);
-            label3.Text = rm.GetString("statsPourcent", JeuxPendu.ci);
+            this.Text = rm.GetString("statistiqueToolStripMenuItem", dialogJoueur.ci);
+            label1.Text = rm.GetString("statsPartiesG", dialogJoueur.ci);
+            label2.Text = rm.GetString("statsPartiesP", dialogJoueur.ci);
+            label3.Text = rm.GetString("statsPourcent", dialogJoueur.ci);
         }
     }
 }

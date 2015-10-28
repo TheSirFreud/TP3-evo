@@ -33,7 +33,6 @@ namespace JeuxDuPendu
         private const int fin = 9;
         private int nbPartieJoue;
         private bool partieEnLigne;
-        public static CultureInfo ci;
         GestionnaireClientTCP leClient;
 
         // Initialisations
@@ -386,14 +385,15 @@ namespace JeuxDuPendu
 
         private void francaisToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ci = new CultureInfo("fr-FR");
+            dialogJoueur.ci = new CultureInfo("fr-FR");
             Translation();
         }
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            ci = new CultureInfo("en-CA");
+            dialogJoueur.ci = new CultureInfo("en-CA");
             Translation();
+
         }
         private void Translation()
         {
@@ -401,25 +401,26 @@ namespace JeuxDuPendu
             ResourceManager rm = new ResourceManager("JeuxDuPendu.Langues.langres", assembly);
 
 
-            jeuEnRéseauToolStripMenuItem.Text = rm.GetString("jeuEnRéseauToolStripMenuItem", ci);
-            démarrerToolStripMenuItem.Text = rm.GetString("démarrerToolStripMenuItem", ci);
-            changerDifficultéToolStripMenuItem.Text = rm.GetString("facileToolStripMenuItem", ci);
-            optionsToolStripMenuItem.Text = rm.GetString("optionsToolStripMenuItem", ci);
-            changerDutilisateurToolStripMenuItem.Text = rm.GetString("changerDutilisateurToolStripMenuItem", ci);
-            multijoueurToolStripMenuItem.Text = rm.GetString("multijoueurToolStripMenuItem", ci);
-            àProposToolStripMenuItem.Text = rm.GetString("àProposToolStripMenuItem", ci);
-            voirInformationToolStripMenuItem.Text = rm.GetString("voirInformationToolStripMenuItem", ci);
-            règlesToolStripMenuItem.Text = rm.GetString("règlesToolStripMenuItem", ci);
-            voirRèglesToolStripMenuItem.Text = rm.GetString("voirRèglesToolStripMenuItem", ci);
-            statistiqueToolStripMenuItem.Text = rm.GetString("statistiqueToolStripMenuItem", ci);
-            consulterStatistiqueToolStripMenuItem.Text = rm.GetString("consulterStatistiqueToolStripMenuItem", ci);
-            langueToolStripMenuItem1.Text = rm.GetString("langueToolStripMenuItem", ci);
-            lblTNiveau.Text = rm.GetString("lblTNiveau", ci);
-            lblTNom.Text = rm.GetString("lblTNom", ci);
-            lblTempsReflexion.Text = rm.GetString("lblTempsReflexion", ci);
-            btnNouvellePartie.Text = rm.GetString("btnNouvellePartie", ci);
-            btnQuitter.Text = rm.GetString("btnQuitter", ci);
-            
+            jeuEnRéseauToolStripMenuItem.Text = rm.GetString("jeuEnRéseauToolStripMenuItem", dialogJoueur.ci);
+            démarrerToolStripMenuItem.Text = rm.GetString("démarrerToolStripMenuItem", dialogJoueur.ci);
+            changerDifficultéToolStripMenuItem.Text = rm.GetString("facileToolStripMenuItem", dialogJoueur.ci);
+            optionsToolStripMenuItem.Text = rm.GetString("optionsToolStripMenuItem", dialogJoueur.ci);
+            changerDutilisateurToolStripMenuItem.Text = rm.GetString("changerDutilisateurToolStripMenuItem", dialogJoueur.ci);
+            multijoueurToolStripMenuItem.Text = rm.GetString("multijoueurToolStripMenuItem", dialogJoueur.ci);
+            àProposToolStripMenuItem.Text = rm.GetString("àProposToolStripMenuItem", dialogJoueur.ci);
+            voirInformationToolStripMenuItem.Text = rm.GetString("voirInformationToolStripMenuItem", dialogJoueur.ci);
+            règlesToolStripMenuItem.Text = rm.GetString("règlesToolStripMenuItem", dialogJoueur.ci);
+            voirRèglesToolStripMenuItem.Text = rm.GetString("voirRèglesToolStripMenuItem", dialogJoueur.ci);
+            statistiqueToolStripMenuItem.Text = rm.GetString("statistiqueToolStripMenuItem", dialogJoueur.ci);
+            consulterStatistiqueToolStripMenuItem.Text = rm.GetString("consulterStatistiqueToolStripMenuItem", dialogJoueur.ci);
+            langueToolStripMenuItem1.Text = rm.GetString("langueToolStripMenuItem", dialogJoueur.ci);
+            lblTNiveau.Text = rm.GetString("lblTNiveau", dialogJoueur.ci);
+            lblTNom.Text = rm.GetString("lblTNom", dialogJoueur.ci);
+            lblTempsReflexion.Text = rm.GetString("lblTempsReflexion", dialogJoueur.ci);
+            btnNouvellePartie.Text = rm.GetString("btnNouvellePartie", dialogJoueur.ci);
+            btnQuitter.Text = rm.GetString("btnQuitter", dialogJoueur.ci);
+
+            ((dialogJoueur)Owner).Translation();
 
         }
 

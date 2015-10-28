@@ -65,13 +65,13 @@ namespace JeuxDuPendu
             Assembly assembly = Assembly.Load("JeuxDuPendu");
             ResourceManager rm = new ResourceManager("JeuxDuPendu.Langues.langres", assembly);
 
-            this.Text = rm.GetString("ChangerDiff", JeuxPendu.ci);
-            groupBox1.Text = rm.GetString("gbxDifficulté", JeuxPendu.ci);
-            radFacile.Text = rm.GetString("radFacile", JeuxPendu.ci);
-            radMoyen.Text = rm.GetString("radMoyen", JeuxPendu.ci);
-            radDifficile.Text = rm.GetString("radDifficile", JeuxPendu.ci);
-            btnChanger.Text = rm.GetString("btnChanger", JeuxPendu.ci);
-            btnAnnuler.Text = rm.GetString("btnAnnuler", JeuxPendu.ci);
+            this.Text = rm.GetString("ChangerDiff", dialogJoueur.ci);
+            groupBox1.Text = rm.GetString("gbxDifficulté", dialogJoueur.ci);
+            radFacile.Text = rm.GetString("radFacile", dialogJoueur.ci);
+            radMoyen.Text = rm.GetString("radMoyen", dialogJoueur.ci);
+            radDifficile.Text = rm.GetString("radDifficile", dialogJoueur.ci);
+            btnChanger.Text = rm.GetString("btnChanger", dialogJoueur.ci);
+            btnAnnuler.Text = rm.GetString("btnAnnuler", dialogJoueur.ci);
         }
     }
 }
