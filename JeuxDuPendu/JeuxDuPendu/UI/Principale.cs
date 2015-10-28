@@ -68,10 +68,7 @@ namespace JeuxDuPendu
             ChangerDifficulte(difficulte);
         }
 
-        //Getter et setter
-
-        public Mots Mots { get; set; }
-
+       
         //Permet de changer la dificulté
         public void ChangerDifficulte(NiveauDiff niveauDiff)
         {
@@ -380,12 +377,7 @@ namespace JeuxDuPendu
             }
 
         }
-
-        private void button10_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
+   
         private void démarrerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             démarrerToolStripMenuItem.Enabled = false;
@@ -407,8 +399,11 @@ namespace JeuxDuPendu
             }
         }
 
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> refs/remotes/origin/master
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
@@ -416,24 +411,41 @@ namespace JeuxDuPendu
             {
                 case "Francais":
                     dialogJoueur.ci = new CultureInfo("fr-FR");
+<<<<<<< HEAD
+                langue = Langues.Fraçais;
+                    break;
+                case "English":
+                    dialogJoueur.ci = new CultureInfo("en-CA");
+                langue = Langues.Anglais;
+=======
                     langue = Langues.Fraçais;
 
                     break;
                 case "English":
                     dialogJoueur.ci = new CultureInfo("en-CA");
                     langue = Langues.Anglais;
+>>>>>>> refs/remotes/origin/master
                     break;
             }           
             Translation();
             bgChangDico.RunWorkerAsync();
+<<<<<<< HEAD
+            EtatNeutre();
+
+        }
+=======
             EtatNeutre();        }
 
+>>>>>>> refs/remotes/origin/master
         private void Translation()
         {
             Assembly assembly = Assembly.Load("JeuxDuPendu");
             ResourceManager rm = new ResourceManager("JeuxDuPendu.Langues.langres", assembly);
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> refs/remotes/origin/master
             jeuEnRéseauToolStripMenuItem.Text = rm.GetString("jeuEnRéseauToolStripMenuItem", dialogJoueur.ci);
             démarrerToolStripMenuItem.Text = rm.GetString("démarrerToolStripMenuItem", dialogJoueur.ci);
             changerDifficultéToolStripMenuItem.Text = rm.GetString("facileToolStripMenuItem", dialogJoueur.ci);
@@ -454,6 +466,8 @@ namespace JeuxDuPendu
             btnQuitter.Text = rm.GetString("btnQuitter", dialogJoueur.ci);
 
             ((dialogJoueur)Owner).Translation();
+<<<<<<< HEAD
+=======
 		}
         private void LangueDifficulte(Langues langue, NiveauDiff diff)
         {
@@ -471,6 +485,7 @@ namespace JeuxDuPendu
                 default:
                     break;
             }
+>>>>>>> refs/remotes/origin/master
         }
 
 
