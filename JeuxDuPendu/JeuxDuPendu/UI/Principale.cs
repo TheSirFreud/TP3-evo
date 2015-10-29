@@ -175,6 +175,21 @@ namespace JeuxDuPendu
             this.lblTSolution.Visible = true;
             this.lblSolution.Text = mot.motATrouver;
             this.lblSolution.Show();
+
+            switch (difficulte)
+            {
+                case NiveauDiff.Facile:
+                    score -= 1;
+                    break;
+                case NiveauDiff.Moyen:
+                    score -= 2;
+                    break;
+                case NiveauDiff.Difficile:
+                    score -= 3;
+                    break;
+            }
+
+            this.lblScore.Text = score.ToString();
             chrono.Stop();
             soundSample["perdu"].Play();
             enJeu = false;
@@ -202,6 +217,20 @@ namespace JeuxDuPendu
             chrono.Stop();
             lblTSolution.Visible = true;
             this.lblSolution.Show();
+
+            switch (difficulte)
+            {
+                case NiveauDiff.Facile:
+                    score += 1;
+                    break;
+                case NiveauDiff.Moyen:
+                    score += 2;
+                    break;
+                case NiveauDiff.Difficile:
+                    score += 3;
+                    break;
+            }
+
             this.lblScore.Text = score.ToString();
             activationBoutton(false);
 
@@ -292,7 +321,6 @@ namespace JeuxDuPendu
                 try
                 {
                     enJeu = true;
-                    score = 0;
                     maxTours = pointDepart;
                     chrono.Start();
                     EtatInit();
