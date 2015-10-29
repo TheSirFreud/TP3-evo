@@ -178,8 +178,6 @@ namespace JeuxDuPendu
             //Indiquer une défaite (Cancel == Défaite)
             if (e.Cancelled)
                 parent.Perdu();
-            else
-                parent.Gagne();
 
             //Redémarrer la partie à l'aide d'un background worker
             BackgroundWorker bwRedemarrerPartie = new BackgroundWorker();

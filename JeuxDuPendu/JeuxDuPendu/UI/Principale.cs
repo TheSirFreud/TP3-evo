@@ -175,6 +175,21 @@ namespace JeuxDuPendu
             this.lblTSolution.Visible = true;
             this.lblSolution.Text = mot.motATrouver;
             this.lblSolution.Show();
+
+            switch (difficulte)
+            {
+                case NiveauDiff.Facile:
+                    score -= 1;
+                    break;
+                case NiveauDiff.Moyen:
+                    score -= 2;
+                    break;
+                case NiveauDiff.Difficile:
+                    score -= 3;
+                    break;
+            }
+
+            this.lblScore.Text = score.ToString();
             chrono.Stop();
             soundSample["perdu"].Play();
             enJeu = false;
@@ -202,6 +217,20 @@ namespace JeuxDuPendu
             chrono.Stop();
             lblTSolution.Visible = true;
             this.lblSolution.Show();
+
+            switch (difficulte)
+            {
+                case NiveauDiff.Facile:
+                    score += 1;
+                    break;
+                case NiveauDiff.Moyen:
+                    score += 2;
+                    break;
+                case NiveauDiff.Difficile:
+                    score += 3;
+                    break;
+            }
+
             this.lblScore.Text = score.ToString();
             activationBoutton(false);
 
@@ -292,7 +321,6 @@ namespace JeuxDuPendu
                 try
                 {
                     enJeu = true;
-                    score = 0;
                     maxTours = pointDepart;
                     chrono.Start();
                     EtatInit();
@@ -414,7 +442,6 @@ namespace JeuxDuPendu
             {
                 case "Francais":
                     dialogJoueur.ci = new CultureInfo("fr-FR");
-
                     langue = Langues.Fraçais;
                     break;
                 case "English":
@@ -440,9 +467,7 @@ namespace JeuxDuPendu
             changerDutilisateurToolStripMenuItem.Text = rm.GetString("changerDutilisateurToolStripMenuItem", dialogJoueur.ci);
             multijoueurToolStripMenuItem.Text = rm.GetString("multijoueurToolStripMenuItem", dialogJoueur.ci);
             àProposToolStripMenuItem.Text = rm.GetString("àProposToolStripMenuItem", dialogJoueur.ci);
-            voirInformationToolStripMenuItem.Text = rm.GetString("voirInformationToolStripMenuItem", dialogJoueur.ci);
-            règlesToolStripMenuItem.Text = rm.GetString("règlesToolStripMenuItem", dialogJoueur.ci);
-            voirRèglesToolStripMenuItem.Text = rm.GetString("voirRèglesToolStripMenuItem", dialogJoueur.ci);
+            voirInformationToolStripMenuItem.Text = rm.GetString("voirInformationToolStripMenuItem", dialogJoueur.ci);            
             statistiqueToolStripMenuItem.Text = rm.GetString("statistiqueToolStripMenuItem", dialogJoueur.ci);
             consulterStatistiqueToolStripMenuItem.Text = rm.GetString("consulterStatistiqueToolStripMenuItem", dialogJoueur.ci);
             langueToolStripMenuItem1.Text = rm.GetString("langueToolStripMenuItem", dialogJoueur.ci);
@@ -456,6 +481,7 @@ namespace JeuxDuPendu
             LangueDifficulte(langue, difficulte);
             AlignerLabelNom();
         }
+
         private void LangueDifficulte(Langues langue, NiveauDiff diff)
         {
             switch (diff)
