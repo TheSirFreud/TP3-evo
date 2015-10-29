@@ -9,6 +9,7 @@ using System.Threading;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 
 namespace JeuxDuPendu
@@ -180,9 +181,34 @@ namespace JeuxDuPendu
             else
                 parent.Gagne();
 
-            //Redémarrer la partie à l'aide d'un thread
-            Thread thrRedemarrerPartie = new Thread(RedemarrerPartie);
-            thrRedemarrerPartie.Start();
+            //Redémarrer la partie à l'aide d'un background worker
+            BackgroundWorker bwRedemarrerPartie = new BackgroundWorker();
+            bwRedemarrerPartie.WorkerSupportsCancellation = true;
+            bwRedemarrerPartie.DoWork +=
+                new DoWorkEventHandler(BwRedemarrerPartie);
+            bwRedemarrerPartie.RunWorkerCompleted +=
+                new RunWorkerCompletedEventHandler(BwRedemarrerPartieTeminee);
+
+            if (!bwRedemarrerPartie.IsBusy)
+                bwRedemarrerPartie.RunWorkerAsync();
+        }
+
+        /// <summary>
+        /// Méthode permettant d'attendre 5 secondes avant le redémarrage de la partie
+        /// </summary>
+        private void BwRedemarrerPartie(object sender, DoWorkEventArgs e)
+        {
+            leClient.Close();
+            //Le temps que le serveur effectue le "redémarrage"
+            Thread.Sleep(5000);
+        }
+
+        /// <summary>
+        /// Méthode permettant de redémarrer une partie côté client
+        /// </summary>
+        private void BwRedemarrerPartieTeminee(object sender, RunWorkerCompletedEventArgs e)
+        {
+            parent.demarrerEnLigne();
         }
 
         /// <summary>
@@ -228,17 +254,6 @@ namespace JeuxDuPendu
         public void EnvoyerPerdu()
         {
             EnvoyerReponse("PERDU");
-        }
-
-        /// <summary>
-        /// Méthode permettant de redémarrer une partie côté client
-        /// </summary>
-        public void RedemarrerPartie()
-        {
-            leClient.Close();
-            //Le temps que le serveur effectue le "redémarrage"
-            Thread.Sleep(5000);
-            parent.demarrerEnLigne();
         }
     }
 }

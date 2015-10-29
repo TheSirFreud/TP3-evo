@@ -53,7 +53,7 @@ namespace JeuxDuPendu
         public void InitialiserDico(Langues langue)
         {
             String chemin = "";
-
+            
             switch (langue)
             {
                 case Langues.Fraçais:
@@ -73,7 +73,7 @@ namespace JeuxDuPendu
         /// <summary>
         /// Permet de charger les mots déjà essayés
         /// </summary>
-        public void InitialiserMotsEssayes()
+        private void InitialiserMotsEssayes()
         {
             string[] lines = System.IO.File.ReadAllLines(@"..\..\..\motsEssayes.txt");
             motsDejaEssayes = new string[lines.Length];
@@ -119,7 +119,7 @@ namespace JeuxDuPendu
         /// Ajout du mot à la liste des mots essayés
         /// </summary>
         public void AjouterMot()
-        {
+        {         
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"..\..\..\motsEssayes.txt", true))
             {
                 file.WriteLine(motATrouver);

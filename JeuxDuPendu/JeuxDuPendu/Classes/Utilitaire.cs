@@ -88,7 +88,7 @@ namespace JeuxDuPendu
 
                 connexion.Open();
                 commande = new OleDbCommand("SELECT * FROM tblUtilisateurs WHERE noUtil=@noUtil", connexion);
-                commande.Parameters.Add("@noJoueur", OleDbType.Integer).Value = noJoueur;
+                commande.Parameters.Add("@noUtil", OleDbType.Integer).Value = noJoueur;
 
                 OleDbDataReader reader = commande.ExecuteReader();
                 if (reader.Read())
@@ -133,7 +133,7 @@ namespace JeuxDuPendu
                     OleDbCommand getId = new OleDbCommand("SELECT @@Identity", connexion);
                     int id = (int)getId.ExecuteScalar();
 
-                    commandeStat = new OleDbCommand("INSERT INTO tblStatistique (nbPartieGagne,nbPartiePerdu,noJoueur) VALUES (0,0,@noJoueur)", connexion);
+                    commandeStat = new OleDbCommand("INSERT INTO tblStatistique (nbPartieGagne,nbPartiePerdu,score,noJoueur) VALUES (0,0,0,@noJoueur)", connexion);
                     commandeStat.Parameters.Add("@nom", OleDbType.Integer).Value = id;
                     commandeStat.ExecuteNonQuery();
                     return id;
@@ -142,6 +142,28 @@ namespace JeuxDuPendu
                 {
                     throw new Exception("Nom déjà existant");
                 }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+                commande.Dispose();
+                connexion.Close();
+            }
+        }
+        public static void deleteUtils(int noJoueur)
+        {
+            List<Joueur> nomsUtil = new List<Joueur>();
+            OleDbConnection connexion = new OleDbConnection(connBD);
+            try
+            {
+                connexion.Open();
+                commande = new OleDbCommand("DELETE FROM tblUtilisateurs WHERE noUtil=@noUtil", connexion);
+                commande.Parameters.Add("@noUtil", OleDbType.Integer).Value = noJoueur;
+
+                commande.ExecuteNonQuery();
             }
             catch (Exception e)
             {

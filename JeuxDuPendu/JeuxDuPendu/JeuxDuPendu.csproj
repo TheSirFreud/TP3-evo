@@ -191,6 +191,12 @@
   <ItemGroup>
     <Resource Include="Resources\Ta Da-SoundBible.com-1884170640.wav" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dictionnaireEN.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dictionnaireFR.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

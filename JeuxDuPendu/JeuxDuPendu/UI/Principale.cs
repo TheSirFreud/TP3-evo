@@ -19,6 +19,10 @@ namespace JeuxDuPendu
 {
     public partial class JeuxPendu : Form
     {
+        public NiveauDiff difficulte;
+        public Langues langue;
+        public int tempsReflexion;
+
         private int score;
         private int maxTours;
         private bool nouvellePartie;
@@ -26,14 +30,17 @@ namespace JeuxDuPendu
         private Mots mot;
         private Dictionary<String, SoundPlayer> soundSample;
         private Joueur joueur;
-        private NiveauDiff difficulte;
-        private int tempsReflexion;
+
         private int pointDepart;
-        private Langues langue;
         private const int fin = 9;
         private int nbPartieJoue;
         private bool partieEnLigne;
         GestionnaireClientTCP leClient;
+
+        public ProgressBar progBar
+        {
+            get { return pbTemps; }
+        }
 
         // Initialisations
         public JeuxPendu(NiveauDiff niveauDiff, Joueur joueurCourrant)
@@ -45,6 +52,7 @@ namespace JeuxDuPendu
             nbPartieJoue = 0;
             enJeu = false;
             partieEnLigne = false;
+            ChangerDifficulte(difficulte);
         }
         private void JeuxPendu_Load(object sender, EventArgs e)
         {
@@ -65,7 +73,7 @@ namespace JeuxDuPendu
             lblNiveau.Text = Utilitaire.GetDescription(difficulte);
             pbTemps.Maximum = tempsReflexion;
             lblCountDown.Text = pbTemps.Maximum.ToString();
-            ChangerDifficulte(difficulte);
+
         }
 
 
@@ -164,7 +172,6 @@ namespace JeuxDuPendu
         //Lorsque perdu
         public void Perdu()
         {
-            if (partieEnLigne) { this.lblMotCourrant.Text = "PAS ASSEZ RAPIDE! PERDU"; }
             this.lblTSolution.Visible = true;
             this.lblSolution.Text = mot.motATrouver;
             this.lblSolution.Show();
@@ -190,7 +197,6 @@ namespace JeuxDuPendu
         //Lorsque gagné
         public void Gagne()
         {
-            if (partieEnLigne) { leClient.EnvoyerGagne(); }
             enJeu = false;
             this.lblSolution.Text = "BRAVO! VOUS AVEZ TROUVÉ LE MOT.";
             chrono.Stop();
@@ -232,8 +238,10 @@ namespace JeuxDuPendu
         {
             mot.InitialiserMotsATrouver(motATrouver);
             partieEnLigne = true;
-            button29_Click(this, null);
+            nouvellePartie = true;
+            button29_Click(null, null);
             this.btnNouvellePartie.Text = "Partie en cours...";
+            chrono.Start();
             this.btnNouvellePartie.Enabled = false;
         }
 
@@ -411,7 +419,6 @@ namespace JeuxDuPendu
                 case "English":
                     dialogJoueur.ci = new CultureInfo("en-CA");
                     langue = Langues.Anglais;
-
                     break;
 
             }
@@ -444,6 +451,7 @@ namespace JeuxDuPendu
 
             ((dialogJoueur)Owner).Translation();
             LangueDifficulte(langue, difficulte);
+            AlignerLabelNom();
         }
 
         private void LangueDifficulte(Langues langue, NiveauDiff diff)
@@ -463,8 +471,5 @@ namespace JeuxDuPendu
                     break;
             }
         }
-
-
-
     }
 }

@@ -161,6 +161,142 @@ namespace JeuxDuPendu.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to cause
+        ///reproduce
+        ///stitch
+        ///dreary
+        ///conscious
+        ///mist
+        ///classy
+        ///warn
+        ///weary
+        ///occur
+        ///whispering
+        ///health
+        ///divide
+        ///vessel
+        ///wrist
+        ///lamentable
+        ///railway
+        ///road
+        ///attractive
+        ///cat
+        ///mouth
+        ///wonderful
+        ///plug
+        ///fluffy
+        ///cross
+        ///fuzzy
+        ///bewildered
+        ///hammer
+        ///zippy
+        ///star
+        ///work
+        ///measure
+        ///painful
+        ///tasteful
+        ///office
+        ///accurate
+        ///undress
+        ///scribble
+        ///adaptable
+        ///behave
+        ///voracious
+        ///texture
+        ///gorgeous
+        ///bag
+        ///force
+        ///receipt
+        ///grandfather
+        ///things
+        ///melodic
+        ///fish
+        ///blind
+        ///sisters
+        ///reply
+        ///tumble
+        ///noise
+        ///puny
+        ///vulgar
+        ///tie
+        ///harass
+        ///ultra
+        ///cannon
+        ///fragile
+        ///r [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string dictionnaireEN {
+            get {
+                return ResourceManager.GetString("dictionnaireEN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to appartement
+        ///arbre
+        ///armoire
+        ///avenue
+        ///avocat
+        ///bain
+        ///bonjour
+        ///boulevard
+        ///bureau
+        ///cable
+        ///cartable
+        ///cellulaire
+        ///chaine
+        ///chemise
+        ///circuit
+        ///comptable
+        ///cours
+        ///crayon
+        ///cuisine
+        ///distraction
+        ///etudiant
+        ///exercice
+        ///fourchette
+        ///fraise
+        ///fromage
+        ///fruit
+        ///gaz
+        ///grenouille
+        ///hiver
+        ///infographie
+        ///informatique
+        ///jaune
+        ///jeune
+        ///kayak
+        ///kiwi
+        ///location
+        ///machine
+        ///maire
+        ///maitrise
+        ///marine
+        ///matin
+        ///medecine
+        ///navette
+        ///neige
+        ///orange
+        ///ordinateur
+        ///partenaire
+        ///plancher
+        ///planete
+        ///poire
+        ///policier
+        ///pomme
+        ///pompier
+        ///portable
+        ///professeur
+        ///racine
+        ///reser [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string dictionnaireFR {
+            get {
+                return ResourceManager.GetString("dictionnaireFR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
         internal static System.IO.UnmanagedMemoryStream erreur {

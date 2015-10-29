@@ -13,6 +13,8 @@ namespace JeuxDuPendu
         [Description("Français")]
         Fraçais,
         [Description("English")]
-        Anglais
+        Anglais,
+        [Description("Aucune")]
+        Aucune
     }
 }
